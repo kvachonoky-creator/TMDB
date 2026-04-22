@@ -1,0 +1,34 @@
+.inputWrapper {
+    position: relative;
+    display: inline-flex; /* Важно: обертка должна сжаться до размеров инпута */
+    width: fit-content;
+}
+
+.myInput {
+    padding-right: 30px; /* Чтобы текст не залезал под кнопку */
+    box-sizing: border-box; /* Чтобы паддинги не расширяли инпут */
+    height: 30px; /* Установите четкую высоту */
+}
+
+.clearBtn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    /* Сброс стандартных стилей кнопки */
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+
+    /* Визуал крестика */
+    font-size: 20px;
+    color: #ccc;
+    line-height: 1;
+}
+
+.clearBtn:hover {
+    color: #333;
+}

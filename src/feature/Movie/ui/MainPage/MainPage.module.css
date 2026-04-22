@@ -1,0 +1,15 @@
+.backdrop {
+    width: 100%;
+    height: 300px;
+}
+
+.moviesContainer {
+    display: flex;
+    gap: 14px;
+}
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}

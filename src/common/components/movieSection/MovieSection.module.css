@@ -1,0 +1,17 @@
+.moviesContainer {
+    display: flex;
+    gap: 14px;
+}
+
+.viewMore {
+    display: inline-block;
+    width: 100px;
+    height: 15px;
+    border-radius: 3px;
+}
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}

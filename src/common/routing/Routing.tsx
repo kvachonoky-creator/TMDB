@@ -8,12 +8,11 @@ import {PageNotFound} from "@/common/components/pageNotFound/PageNotFound.tsx";
 
 export const Path = {
     Main: '/',
-    Category: '/category',
+    Category: ':category',
     Filtered: '/filtered',
     Search: '/search',
     Favorites: '/favorites',
     PageNotFound: '*',
-
 } as const
 
 export const Routing = () => {

@@ -1,5 +1,12 @@
+import {SearchInput} from "@/common/components/searchInput/SearchInput.tsx";
+
 export const SearchPage = () => {
+
+    const onclickHandler = () => {
+
+    }
+
     return (
-        <div>Search Page =)</div>
+        <SearchInput onClick={onclickHandler}/>
     )
 }

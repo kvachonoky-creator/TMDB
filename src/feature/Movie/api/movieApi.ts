@@ -1,5 +1,5 @@
 import {baseApi} from "@/app/api/baseApi.ts";
-import type {BaseResponse} from "@/feature/Movie/api/movieApi.types.ts";
+import type {BaseResponse, SearchQueryParams} from "@/feature/Movie/api/movieApi.types.ts";
 
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -14,7 +14,14 @@ export const movieApi = baseApi.injectEndpoints({
         }),
         getNowPlayingMovies: build.query<BaseResponse, void>({
             query: () => 'movie/now_playing'
-        })
+        }),
+        // searchMovie: build.query<BaseResponse, params: SearchQueryParams>({
+        //     query: (params) => ({
+        //         method: 'GET',
+        //         url: 'search/movie',
+        //         params
+        //     })
+        // })
     })
 })
 

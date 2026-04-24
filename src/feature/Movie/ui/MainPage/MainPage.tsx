@@ -7,73 +7,38 @@ import {
 import {getRandomBackdrop} from "@/common/utils";
 import s from './MainPage.module.css'
 import {SearchInput} from "@/common/components/searchInput/SearchInput.tsx";
-import {IMAGE_BASE_URL} from "@/common/constants/constants.ts";
+import {MovieSection} from "@/common/components/movieSection/MovieSection.tsx";
+import {useNavigate} from "react-router";
+import {Path} from "@/common/routing";
 
 export const MainPage = () => {
 
     const {data: popularMovies} = useGetPopularMoviesQuery()
-    const {data:  topRatedMovies} = useGetTopRatedMoviesQuery()
+    const {data: topRatedMovies} = useGetTopRatedMoviesQuery()
     const {data: upcomingMovies} = useGetUpcomingMoviesQuery()
-    const {data: nowPlayingMovies} = useGetNowPlayingMoviesQuery()
+    const {data: nowPlayingMovies} = useGetNowPlayingMoviesQuery() // Кастомный хук?
+
+    const navigate = useNavigate()
 
     let backdrop = undefined
 
-        if (popularMovies) {
-            backdrop = getRandomBackdrop(popularMovies.results)
-        }
+    if (popularMovies) {
+        backdrop = getRandomBackdrop(popularMovies.results)
+    }
 
+    const onClickHandler = () => {
+        navigate(Path.Search)
+    }
 
-
-        return (
-            <>
-                <img className={s.backdrop} src={backdrop} alt="backdrop image"/>
-                <SearchInput/>
-                <h2>Popular Movies</h2>
-                <div className={s.moviesContainer}>
-                    {popularMovies && popularMovies.results.map((movie) => (
-                        <div className={s.movie} key={movie.id}>
-                            <img src={IMAGE_BASE_URL+movie.backdrop_path} alt="movie backdrop"/>
-                            <h3>{movie.title}</h3>
-                            <span>rating: {Math.round(movie.vote_average * 100) / 100}</span>
-                        </div>
-
-                    ))}
-                </div>
-                <h2>Top Rated Movies</h2>
-                <div className={s.moviesContainer}>
-                    {topRatedMovies && topRatedMovies.results.map((movie) => (
-                        <div className={s.movie} key={movie.id}>
-                            <img src={IMAGE_BASE_URL+movie.backdrop_path} alt="movie backdrop"/>
-                            <h3>{movie.title}</h3>
-                            <span>rating: {Math.round(movie.vote_average * 100) / 100}</span>
-                        </div>
-
-                    ))}
-                </div>
-                <h2>Upcoming Movies</h2>
-                <div className={s.moviesContainer}>
-                    {upcomingMovies && upcomingMovies.results.map((movie) => (
-                        <div className={s.movie} key={movie.id}>
-                            <img src={IMAGE_BASE_URL+movie.backdrop_path} alt="movie backdrop"/>
-                            <h3>{movie.title}</h3>
-                            <span>rating: {Math.round(movie.vote_average * 100) / 100}</span>
-                        </div>
-
-                    ))}
-                </div>
-                <h2>Now Playing Movies</h2>
-                <div className={s.moviesContainer}>
-                    {nowPlayingMovies && nowPlayingMovies.results.map((movie) => (
-                        <div className={s.movie} key={movie.id}>
-                            <img src={IMAGE_BASE_URL+movie.backdrop_path} alt="movie backdrop"/>
-                            <h3>{movie.title}</h3>
-                            <span>rating: {Math.round(movie.vote_average * 100) / 100}</span>
-                        </div>
-
-                    ))}
-                </div>
-
-            </>
-
-        )
+    return (
+        <>
+            <img className={s.backdrop} src={backdrop} alt="backdrop image"/>
+            <SearchInput onClick={onClickHandler}/>
+            {popularMovies && <MovieSection title='Popular Movies' movies={popularMovies.results.slice(0, 6)}/>}
+            {topRatedMovies && <MovieSection title='Top Rated' movies={topRatedMovies.results.slice(0, 6)}/>}
+            {upcomingMovies && <MovieSection title='Upcoming' movies={upcomingMovies.results.slice(0, 6)}/>}
+            {nowPlayingMovies &&
+                <MovieSection title='Now Playing Movies' movies={nowPlayingMovies.results.slice(0, 6)}/>}
+        </>
+    )
 }

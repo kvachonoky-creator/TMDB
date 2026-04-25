@@ -1,19 +1,30 @@
 import s from './searchInput.module.css'
-import type {ChangeEvent} from "react";
+import {type ChangeEvent, useState} from "react";
 
 type Props = {
-    onClick: () => void
+    onClick: (title: string) => void
 }
 
 export const SearchInput = ({onClick}: Props) => {
 
+    const [value, setValue] = useState('')
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
     }
 
+    const onClickHandler = () => {
+        onClick(value)
+        setValue('')
+    }
+
+
     return (
-        <form className={s.container}>
-                <input onChange={onChangeHandler} type="search" className={s.myInput} placeholder="Enter a movie title to start searching"/>
-            <button type='submit' onChange={() => {}}>Search</button>
-        </form>
+        <div className={s.container}>
+            <input value={value} type="search" className={s.myInput}
+                   placeholder="Enter a movie title to start searching" onChange={onChangeHandler}/>
+            <button disabled={!value} onClick={onClickHandler}>Search
+            </button>
+        </div>
     )
 }

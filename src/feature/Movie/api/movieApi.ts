@@ -15,14 +15,23 @@ export const movieApi = baseApi.injectEndpoints({
         getNowPlayingMovies: build.query<BaseResponse, void>({
             query: () => 'movie/now_playing'
         }),
-        // searchMovie: build.query<BaseResponse, params: SearchQueryParams>({
-        //     query: (params) => ({
-        //         method: 'GET',
-        //         url: 'search/movie',
-        //         params
-        //     })
-        // })
+        searchMovie: build.query<BaseResponse, SearchQueryParams>({
+            query: (params) => {
+                return {
+                    method: 'GET',
+                    url: 'search/movie',
+                    params
+                }
+            }
+        })
     })
 })
 
-export const {useGetPopularMoviesQuery, useGetTopRatedMoviesQuery, useGetUpcomingMoviesQuery, useGetNowPlayingMoviesQuery} = movieApi
+export const {
+    useGetPopularMoviesQuery,
+    useGetTopRatedMoviesQuery,
+    useGetUpcomingMoviesQuery,
+    useGetNowPlayingMoviesQuery,
+useSearchMovieQuery,
+    useLazySearchMovieQuery
+} = movieApi

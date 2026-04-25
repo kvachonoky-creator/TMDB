@@ -10,12 +10,14 @@ export const SearchPage = () => {
 
     const {data} = useSearchMovieQuery({query}, {skip: !query});
 
+    console.log(data)
+
     const onclickHandler = (title: string) => {
         setSearchParams({query: title});
     }
 
     return (
-        <div>
+        <section>
             <h2>Search results</h2>
             <SearchInput onClick={(title) => onclickHandler(title)}/>
             <span>Results for "{query}"</span>
@@ -23,7 +25,7 @@ export const SearchPage = () => {
             data.results.length
                 ? <MovieCards movies={data.results}/>
                 : <span>No matches found for "{query}".</span>}
-        </div>
+        </section>
 
     )
 }

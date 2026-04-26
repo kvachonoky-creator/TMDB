@@ -5,14 +5,15 @@ import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
 
 type Props = {
     title: string,
-    movies: Movie[]
+    movies: Movie[],
+    to: string,
 }
 
-export const MovieSection = ({title, movies}: Props) => {
+export const MovieSection = ({title, movies, to}: Props) => {
     return (
         <section>
             <h2>{title}</h2>
-            <Link className={s.viewMore} title='View more'>View more</Link>
+            <Link to={to} className={s.viewMore} title='View more'>View more</Link>
             <MovieCards movies={movies}/>
         </section>
     );

@@ -8,23 +8,24 @@ import {PageNotFound} from "@/common/components/pageNotFound/PageNotFound.tsx";
 
 export const Path = {
     Main: '/',
-    Category: '/category',
+    Category: '/movie',
     Filtered: '/filtered',
     Search: '/search',
     Favorites: '/favorites',
     PageNotFound: '*',
 } as const
 
+
 export const Routing = () => {
 
     return (
         <Routes>
-         <Route path={Path.Main} element={<MainPage/>}/>
-         <Route path={Path.Category} element={<CategoryPage/>}/>
-         <Route path={Path.Filtered} element={<FilteredPage/>}/>
-         <Route path={Path.Search} element={<SearchPage/>}/>
-         <Route path={Path.Favorites} element={<FavoritesPage/>}/>
-         <Route path={Path.PageNotFound} element={<PageNotFound/>}/>
+            <Route path={Path.Main} element={<MainPage/>}/>
+            <Route path={`${Path.Category}/:categoryName`} element={<CategoryPage/>}/>
+            <Route path={Path.Filtered} element={<FilteredPage/>}/>
+            <Route path={Path.Search} element={<SearchPage/>}/>
+            <Route path={Path.Favorites} element={<FavoritesPage/>}/>
+            <Route path={Path.PageNotFound} element={<PageNotFound/>}/>
         </Routes>
     )
 }

@@ -3,17 +3,8 @@ import type {BaseResponse, SearchQueryParams} from "@/feature/Movie/api/movieApi
 
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getPopularMovies: build.query<BaseResponse, void>({
-            query: () => 'movie/popular'
-        }),
-        getTopRatedMovies: build.query<BaseResponse, void>({
-            query: () => 'movie/top_rated'
-        }),
-        getUpcomingMovies: build.query<BaseResponse, void>({
-            query: () => 'movie/upcoming'
-        }),
-        getNowPlayingMovies: build.query<BaseResponse, void>({
-            query: () => 'movie/now_playing'
+        getCategoryMovies: build.query<BaseResponse, string>({
+            query: (category) => `movie/${category}`
         }),
         searchMovie: build.query<BaseResponse, SearchQueryParams>({
             query: (params) => {
@@ -28,10 +19,6 @@ export const movieApi = baseApi.injectEndpoints({
 })
 
 export const {
-    useGetPopularMoviesQuery,
-    useGetTopRatedMoviesQuery,
-    useGetUpcomingMoviesQuery,
-    useGetNowPlayingMoviesQuery,
-useSearchMovieQuery,
-    useLazySearchMovieQuery
+    useSearchMovieQuery,
+    useGetCategoryMoviesQuery
 } = movieApi

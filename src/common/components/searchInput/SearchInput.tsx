@@ -9,21 +9,22 @@ export const SearchInput = ({onClick}: Props) => {
 
     const [value, setValue] = useState('')
 
+    const disabled = !value.trim()
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
 
     const onClickHandler = () => {
-        onClick(value)
+        onClick(value.trim())
         setValue('')
     }
-
 
     return (
         <div className={s.container}>
             <input value={value} type="search" className={s.myInput}
                    placeholder="Enter a movie title to start searching" onChange={onChangeHandler}/>
-            <button disabled={!value} onClick={onClickHandler}>Search
+            <button disabled={disabled} onClick={onClickHandler}>Search
             </button>
         </div>
     )

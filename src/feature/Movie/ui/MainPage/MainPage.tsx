@@ -6,6 +6,7 @@ import {MovieSection} from "@/common/components/movieSection/MovieSection.tsx";
 import {useNavigate} from "react-router";
 import {Path} from "@/common/routing";
 import {Category} from "@/common/constants";
+import {Container} from "@/common/components/Container/Container.tsx";
 
 export const MainPage = () => {
 
@@ -30,7 +31,7 @@ export const MainPage = () => {
     }
 
     return (
-        <>
+        <Container>
             <img className={s.backdrop} src={backdrop} alt="backdrop image"/>
             <SearchInput onClick={(title) => onClickHandler(title)}/>
             {popularMovies && <MovieSection to={getCategoryPath(Category.Popular)} title='Popular Movies'
@@ -42,6 +43,6 @@ export const MainPage = () => {
             {nowPlayingMovies &&
                 <MovieSection to={getCategoryPath(Category.NowPlaying)} title='Now Playing Movies'
                               movies={nowPlayingMovies.results.slice(0, 6)}/>}
-        </>
+        </Container>
     )
 }

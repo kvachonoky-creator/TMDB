@@ -13,3 +13,5 @@ export const CategoryPageTitle: Record<string, string> = {
     [Category.NowPlaying]: 'Now Playing Movies',
     [Category.Upcoming]: 'Upcoming Movies',
 }
+
+export const FavoriteMovies = 'Favorite Movies'

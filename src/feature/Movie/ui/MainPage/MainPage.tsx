@@ -13,7 +13,7 @@ export const MainPage = () => {
     const {data: popularMovies} = useGetCategoryMoviesQuery(Category.Popular)
     const {data: topRatedMovies} = useGetCategoryMoviesQuery(Category.TopRated)
     const {data: upcomingMovies} = useGetCategoryMoviesQuery(Category.Upcoming)
-    const {data: nowPlayingMovies} = useGetCategoryMoviesQuery(Category.NowPlaying) // Кастомный хук? можно в массив, а потом отмапить, чтобы компонента была меньше
+    const {data: nowPlayingMovies} = useGetCategoryMoviesQuery(Category.NowPlaying) // Кастомный хук? можно в массив, а потом отмапить, чтобы компонента была меньше, сделать может в хуке массив объектов, а потом тут отмапить, но как делать скелетон изначальный, нужно подумать + у меня должен background меняться
 
     const navigate = useNavigate()
 

@@ -1,5 +1,5 @@
 import {baseApi} from "@/app/api/baseApi.ts";
-import type {BaseResponse, SearchQueryParams} from "@/feature/Movie/api/movieApi.types.ts";
+import type {BaseResponse, ResponseBody, SearchQueryParams, SortBy} from "@/feature/Movie/api/movieApi.types.ts";
 
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -7,18 +7,32 @@ export const movieApi = baseApi.injectEndpoints({
             query: (category) => `movie/${category}`
         }),
         searchMovie: build.query<BaseResponse, SearchQueryParams>({
-            query: (params) => {
-                return {
-                    method: 'GET',
-                    url: 'search/movie',
-                    params
-                }
-            }
+            query: (params) => ({
+                method: 'GET',
+                url: 'search/movie',
+                params
+            })
+        }),
+        getDiscoverMovies: build.query<BaseResponse, { sort: SortBy }>({
+            query: (params) => ({
+                method: 'GET',
+                url: 'discover/movie',
+                params
+            })
+        }),
+        getMovieDetails: build.query<ResponseBody, number>({
+            query: (id) => ({
+                method: 'GET',
+                url: `credit/${id}`
+            })
         })
     })
 })
 
 export const {
     useSearchMovieQuery,
-    useGetCategoryMoviesQuery
+    useGetCategoryMoviesQuery,
+    useGetDiscoverMoviesQuery,
+    useLazyGetDiscoverMoviesQuery,
+    useGetMovieDetailsQuery
 } = movieApi

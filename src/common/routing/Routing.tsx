@@ -9,7 +9,7 @@ import {MoviePage} from "@/feature/Movie/ui/MoviePage/MoviePage.tsx";
 
 export const Path = {
     Main: '/',
-    Category: '/movie',
+    Category: '/movies',
     Filtered: '/filtered',
     Search: '/search',
     Favorites: '/favorites',

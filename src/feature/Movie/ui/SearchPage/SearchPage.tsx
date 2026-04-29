@@ -1,5 +1,5 @@
 import {SearchInput} from "@/common/components/searchInput/SearchInput.tsx";
-import {useSearchMovieQuery} from "@/feature/Movie/api/movieApi.ts";
+import {useSearchMoviesQuery} from "@/feature/Movie/api/movieApi.ts";
 import {useSearchParams} from "react-router";
 import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
 
@@ -8,7 +8,7 @@ export const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const query = searchParams.get('query') || '';
 
-    const {data} = useSearchMovieQuery({query}, {skip: !query});
+    const {data} = useSearchMoviesQuery({query}, {skip: !query});
 
     console.log(data)
 

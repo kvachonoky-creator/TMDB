@@ -1,14 +1,55 @@
-import {useParams} from "react-router";
+import {Link, useNavigate, useParams} from "react-router";
+import {
+    useGetMoviesCreditsQuery,
+    useGetMoviesDetailsQuery,
+    useGetMoviesSimilarQuery
+} from "@/feature/Movie/api/movieApi.ts";
+import {Container} from "@/common/components/Container/Container.tsx";
+import {IMAGE_BASE_URL} from "@/common/constants";
+import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
 
 export const MoviePage = () => {
 
     const {id} = useParams()
 
-    console.log(id)
+    const navigate = useNavigate();
 
-    return (
-        <div>
-            movie page =))
-        </div>
-    )
+    const {data: movie} = useGetMoviesDetailsQuery(id)
+const {data: actors} = useGetMoviesCreditsQuery(id)
+    const {data: similar} = useGetMoviesSimilarQuery(id)
+
+    const onClickHandler = () => {
+        navigate(-1)
+    }
+
+    if (!movie && ! actors && !similar) {
+        return <span>loading...</span>
+    }
+
+    if(movie && actors && similar){
+        return (
+            <Container>
+                <section>
+                    <button onClick={onClickHandler}>Back</button>
+                    <img src={IMAGE_BASE_URL +movie.poster_path} alt='poster'></img>
+                    <h3>{movie.title}</h3>
+                    <span>Release year{movie.release_date}</span>
+                    <span>{movie.vote_average}</span>
+                    {movie.genres.map(g => <span key={g.id}>{g.name}</span>)}
+                    <span>Runtime: {movie.runtime}minute</span>
+                    <p>{movie.overview}</p>
+                    <div>
+                        {actors.cast.slice(0,6).map(a => <div key={a.id}>
+                            <img src={IMAGE_BASE_URL +a.profile_path} alt='profile'></img>
+                            <span>{a.name}</span>
+                            <span>{a.character}</span>
+                        </div>)}
+                    </div>
+                    <MovieCards movies={similar.results.slice(0,6)}/>
+                </section>
+            </Container>
+        )
+    }
+
+
 }

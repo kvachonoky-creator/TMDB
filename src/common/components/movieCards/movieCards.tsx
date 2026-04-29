@@ -1,15 +1,14 @@
 import s from "@/common/components/movieSection/MovieSection.module.css";
 import {IMAGE_BASE_URL} from "@/common/constants/constants.ts";
-import type {Movie} from "@/feature/Movie/api/movieApi.types.ts";
 import type {Favorite} from "@/common/types/types.ts";
 import {useAppDispatch} from "@/common/hooks";
 import {toggleFavoritesMovies} from "@/app/model/appSlice.ts";
 import {useNavigate} from "react-router";
 import {Path} from "@/common/routing";
-import {type MouseEvent } from 'react'
+import {type MouseEvent} from 'react'
 
 type Props = {
-    movies: Movie[] | Favorite[];
+    movies: Favorite[];
 }
 
 export const MovieCards = ({movies}: Props) => {

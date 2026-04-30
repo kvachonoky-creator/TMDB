@@ -1,234 +1,188 @@
-export type Movie = {
-    adult: boolean
-    backdrop_path: string
-    genre_ids: number[]
-    id: number
-    original_language: string
-    original_title: string
-    overview: string
-    popularity: number
-    poster_path: string
-    release_date: string // формат YYYY-MM-DD // iso в schemas
-    title: string
-    video: boolean
-    vote_average: number
-    vote_count: number
-};
+import * as z from "zod"
 
-export type Date = {
-    maximum: string
-    minimum: string
-}
+// --- Movie ---
+export const Movie = z.object({
+    adult: z.boolean(),
+    backdrop_path: z.string(),
+    genre_ids: z.array(z.number()),
+    id: z.number(),
+    original_language: z.string(),
+    original_title: z.string(),
+    overview: z.string(),
+    popularity: z.number(),
+    poster_path: z.string(),
+    release_date: z.iso.date(),
+    title: z.string(),
+    video: z.boolean(),
+    vote_average: z.number(),
+    vote_count: z.number(),
+});
 
-export type BaseResponse = {
-    dates?: Date
-    page: number
-    results: Movie[]
-    total_pages: number
-    total_results: number
-}
+// --- Date ---
+export const Date = z.object({
+    maximum: z.string(),
+    minimum: z.string(),
+});
 
-export type SearchQueryParams = {
-    query: string
-    include_adult?: boolean
-    language?: string
-    primary_release_year?: string
-    page?: number
-    region?: string
-    year?: string
-};
+// --- BaseResponse ---
+export const BaseResponse = z.object({
+    dates: Date.optional(),
+    page: z.number(),
+    results: z.array(Movie),
+    total_pages: z.number(),
+    total_results: z.number(),
+});
 
+// --- SearchQueryParams ---
+export const SearchQueryParams = z.object({
+    query: z.string(),
+    include_adult: z.boolean().optional(),
+    language: z.string().optional(),
+    primary_release_year: z.string().optional(),
+    page: z.number().optional(),
+    region: z.string().optional(),
+    year: z.string().optional(),
+});
 
-export const SORT_FIELDS = {
-    POPULARITY: 'popularity',
-    RELEASE_DATE: 'primary_release_date',
-    TITLE: 'title',
-    VOTE_AVERAGE: 'vote_average',
-} as const;
-
-export const SORT_ORDERS = {
-    ASC: 'asc',
-    DESC: 'desc',
-} as const;
-
-export type SortField = (typeof SORT_FIELDS)[keyof typeof SORT_FIELDS];
-export type SortOrder = (typeof SORT_ORDERS)[keyof typeof SORT_ORDERS];
-
-export type SortBy = `${SortField}.${SortOrder}`;
-
-export type ResponseBody = {
-    credit_type: string
-    department: string
-    job: string
-    media: Media
-    media_type: string
-    id: string
-    person: Person
-};
-
-type Media = {
-    adult: boolean
-    backdrop_path: string | null
-    id: number
-    name: string
-    original_language: string
-    original_name: string
-    overview: string
-    poster_path: string | null
-    media_type: string
-    genre_ids: number[]
-    popularity: number
-    first_air_date: string
-    vote_average: number
-    vote_count: number
-    origin_country: string[]
-    character: string
-    episodes: unknown[]
-    seasons: Season[]
-};
-
-type Season = {
-    air_date: string
-    episode_count: number
-    id: number
-    name: string
-    overview: string
-    poster_path: string | null
-    season_number: number
-    show_id: number
-};
-
-type Person = {
-    adult: boolean
-    id: number
-    name: string
-    original_name: string
-    media_type: string
-    popularity: number
-    gender: number
-    known_for_department: string
-    profile_path: string | null
-};
-
-type Genres = {
-    id: number,
-    name: string,
-}
-
-export type GenresResponse = {
-    genres: Genres[]
-}
-
-export type MovieDetails = {
-    adult: boolean;
-    backdrop_path: string | null;
-    belongs_to_collection: Collection | null;
-    budget: number;
-    genres: Genre[];
-    homepage: string;
-    id: number;
-    imdb_id: string | null;
-    origin_country: string[];
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string | null;
-    production_companies: ProductionCompany[];
-    production_countries: ProductionCountry[];
-    release_date: string;
-    revenue: number;
-    runtime: number | null;
-    spoken_languages: SpokenLanguage[];
-    status: string;
-    tagline: string | null;
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-};
-
-export type Collection = {
-    id: number;
-    name: string;
-    poster_path: string | null;
-    backdrop_path: string | null;
-};
-
-export type Genre = {
-    id: number;
-    name: string;
-};
-
-export type ProductionCompany = {
-    id: number;
-    logo_path: string | null;
-    name: string;
-    origin_country: string;
-};
-
-export type ProductionCountry = {
-    iso_3166_1: string;
-    name: string;
-};
-
-export type SpokenLanguage = {
-    english_name: string;
-    iso_639_1: string;
-    name: string;
-};
+// --- Sort ---
 
 
-type BasePerson = {
-    adult: boolean;
-    gender: number; // 0: Not set, 1: Female, 2: Male, 3: Non-binary
-    id: number;
-    known_for_department: string;
-    name: string;
-    original_name: string;
-    popularity: number;
-    profile_path: string | null;
-    credit_id: string;
-};
+export const SortBy = z.string().regex(
+    /^(popularity|primary_release_date|title|vote_average)\.(asc|desc)$/
+);
 
-type CastMember = BasePerson & {
-    cast_id: number;
-    character: string;
-    order: number;
-};
+// --- Genres ---
+const Genres = z.object({
+    id: z.number(),
+    name: z.string(),
+});
 
-type CrewMember = BasePerson & {
-    department: string;
-    job: string;
-};
+export const GenresResponse = z.object({
+    genres: z.array(Genres),
+});
 
-export type MovieCredits = {
-    id: number;
-    cast: CastMember[];
-    crew: CrewMember[];
-}
+// --- MovieDetails ---
+const Collection = z.object({
+    id: z.number(),
+    name: z.string(),
+    poster_path: z.string().nullable(),
+    backdrop_path: z.string().nullable(),
+});
+
+const Genre = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+
+const ProductionCompany = z.object({
+    id: z.number(),
+    logo_path: z.string().nullable(),
+    name: z.string(),
+    origin_country: z.string(),
+});
+
+const ProductionCountry = z.object({
+    iso_3166_1: z.string(),
+    name: z.string(),
+});
+
+const SpokenLanguage = z.object({
+    english_name: z.string(),
+    iso_639_1: z.string(),
+    name: z.string(),
+});
+
+export const MovieDetails = z.object({
+    adult: z.boolean(),
+    backdrop_path: z.string().nullable(),
+    belongs_to_collection: Collection.nullable(),
+    budget: z.number(),
+    genres: z.array(Genre),
+    homepage: z.string(),
+    id: z.number(),
+    imdb_id: z.string().nullable(),
+    origin_country: z.array(z.string()),
+    original_language: z.string(),
+    original_title: z.string(),
+    overview: z.string(),
+    popularity: z.number(),
+    poster_path: z.string().nullable(),
+    production_companies: z.array(ProductionCompany),
+    production_countries: z.array(ProductionCountry),
+    release_date: z.string(),
+    revenue: z.number(),
+    runtime: z.number().nullable(),
+    spoken_languages: z.array(SpokenLanguage),
+    status: z.string(),
+    tagline: z.string().nullable(),
+    title: z.string(),
+    video: z.boolean(),
+    vote_average: z.number(),
+    vote_count: z.number(),
+});
+
+// --- Credits ---
+const BasePerson = z.object({
+    adult: z.boolean(),
+    gender: z.number(),
+    id: z.number(),
+    known_for_department: z.string(),
+    name: z.string(),
+    original_name: z.string(),
+    popularity: z.number(),
+    profile_path: z.string().nullable(),
+    credit_id: z.string(),
+});
+
+const CastMember = BasePerson.extend({
+    cast_id: z.number(),
+    character: z.string(),
+    order: z.number(),
+});
 
 
-export type MovieSimilarItem = {
-    adult: boolean;
-    backdrop_path: string | null;
-    genre_ids: number[];
-    id: number;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string | null;
-    release_date: string; //
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-};
 
-export type MovieSimilarResponse = {
-    page: number;
-    results: MovieSimilarItem[];
-    total_pages: number;
-    total_results: number;
-};
+const CrewMember = BasePerson.extend({
+    department: z.string(),
+    job: z.string(),
+});
+
+export const MovieCredits = z.object({
+    id: z.number(),
+    cast: z.array(CastMember),
+    crew: z.array(CrewMember),
+});
+
+// --- Similar ---
+const MovieSimilarItem = z.object({
+    adult: z.boolean(),
+    backdrop_path: z.string().nullable(),
+    genre_ids: z.array(z.number()),
+    id: z.number(),
+    original_language: z.string(),
+    original_title: z.string(),
+    overview: z.string(),
+    popularity: z.number(),
+    poster_path: z.string().nullable(),
+    release_date: z.string(),
+    title: z.string(),
+    video: z.boolean(),
+    vote_average: z.number(),
+    vote_count: z.number(),
+});
+
+export const MovieSimilarResponse = z.object({
+    page: z.number(),
+    results: z.array(MovieSimilarItem),
+    total_pages: z.number(),
+    total_results: z.number(),
+});
+
+export type Movie = z.infer<typeof Movie>;
+export type BaseResponse = z.infer<typeof BaseResponse>;
+export type SearchQueryParams = z.infer<typeof SearchQueryParams>;
+export type SortBy = z.infer<typeof SortBy>;
+export type GenresResponse = z.infer<typeof GenresResponse>;
+export type MovieDetails = z.infer<typeof MovieDetails>;
+export type MovieCredits = z.infer<typeof MovieCredits>;
+export type MovieSimilarResponse = z.infer<typeof MovieSimilarResponse>;

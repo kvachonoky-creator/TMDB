@@ -1,18 +1,20 @@
 import {NavLink, useParams} from "react-router";
 import {useGetCategoryMoviesQuery} from "@/feature/Movie/api/movieApi.ts";
-import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
+import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import s from './CategoryPage.module.css'
 import {Category, CategoryPageTitle} from "@/common/constants";
 import {getCategoryPath} from "@/common/utils";
+import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
 
 
 export const CategoryPage = () => {
     const {categoryName = 'popular'} = useParams();
 
-    const {data} = useGetCategoryMoviesQuery(categoryName);
+    const {data, isFetching, isLoading} = useGetCategoryMoviesQuery(categoryName);
 
     return (
         <section>
+            {isFetching && <LinearProgress/>}
             <NavLink to={getCategoryPath(Category.Popular)}
                      className={({isActive}) => isActive ? s.active : ''}>Popular Movies</NavLink>
             <NavLink to={getCategoryPath(Category.TopRated)}

@@ -1,4 +1,4 @@
-import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
+import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import {useAppSelector} from "@/common/hooks";
 import {selectFavoriteMovies} from "@/app/model/appSlice.ts";
 

@@ -4,7 +4,7 @@ import {CategoryPage} from "@/feature/Movie/ui/CategoryPage/CategoryPage.tsx";
 import {FilteredPage} from "@/feature/Movie/ui/FilteredPage/FilteredPage.tsx";
 import {SearchPage} from "@/feature/Movie/ui/SearchPage/SearchPage.tsx";
 import {FavoritesPage} from "@/feature/Movie/ui/FavoritesPage/FavoritesPage.tsx";
-import {PageNotFound} from "@/common/components/pageNotFound/PageNotFound.tsx";
+import {PageNotFound} from "@/common/components/PageNotFound/PageNotFound.tsx";
 import {MoviePage} from "@/feature/Movie/ui/MoviePage/MoviePage.tsx";
 
 export const Path = {

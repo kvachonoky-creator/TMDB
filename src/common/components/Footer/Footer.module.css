@@ -1,0 +1,16 @@
+.footer {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dark{
+   background-color: #141c2c;
+    color: #e2e8f0;
+}
+
+.light{
+background-color: #f3f4f6;
+    color: #213547;
+}

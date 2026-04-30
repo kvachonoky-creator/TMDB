@@ -1,13 +1,15 @@
 import {Container} from "@/common/components/Container/Container.tsx";
 import {useGetDiscoverMoviesQuery, useGetMoviesGenreQuery} from "@/feature/Movie/api/movieApi.ts";
-import {SORT_FIELDS, SORT_ORDERS, type SortBy} from "@/feature/Movie/api/movieApi.types.ts";
 import {type ChangeEvent, useState} from "react";
 import s from './FilteredPage.module.css'
-import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
+import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import {
     DoubleRangeSlider
 } from "@/feature/Movie/ui/FilteredPage/FilteredOptions/DoubleRangeSlide/DoubleRangeSlider.tsx";
 import {useDebounce} from "@/common/hooks";
+import {SORT_FIELDS, SORT_ORDERS} from "@/common/types";
+import type {SortBy} from "@/feature/Movie/api/movieApi.types.ts";
+import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
 
 
 const initMin = 0
@@ -35,7 +37,7 @@ export const FilteredPage = () => {
         'vote_average.lte': debouncedMax,
     }
 
-    const {data} = useGetDiscoverMoviesQuery(params)
+    const {data, isFetching} = useGetDiscoverMoviesQuery(params)
 
     const onchangeHandlerSelect = (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => {
         setFilters({...params, sort_by: e.currentTarget.value as SortBy}) // пока так, потом может поменяю
@@ -63,8 +65,6 @@ export const FilteredPage = () => {
     console.log(filters)
 
     const onHandleReset = () => {
-        setMinValue(initMin)
-        setMaxValue(initMax)
         setFilters({
             sort_by: 'popularity.desc',
             'with_genres': ''
@@ -73,10 +73,10 @@ export const FilteredPage = () => {
         setMaxValue(initMax)// надо будет переделать
     }
 
-
     return (
         <Container>
             <div className={s.container}>
+                {isFetching && <LinearProgress />}
                 <aside className={s.filterContainer}>
                     <h3>Filters / Sort</h3>
                     <form onReset={onHandleReset}>

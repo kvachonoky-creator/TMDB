@@ -1,21 +1,20 @@
 import type {Theme} from "@/app/model/appSlice.types.ts";
 import type {Favorite} from "@/common/types/types.ts";
-import {FavoriteMovies} from "@/common/constants";
+import {FavoriteMovies, ThemeMode} from "@/common/constants";
 import {createAppSlice} from "@/common/utils";
-import type {Movie, MovieSimilarItem} from "@/feature/Movie/api/movieApi.types.ts";
 
 export const appSlice = createAppSlice({
     name: 'appSlice',
     initialState: {
         theme: 'light' as Theme,
-        favoriteMovies: JSON.parse(localStorage.getItem(FavoriteMovies) || '[]') as Favorite[]
+        favoriteMovies: [] as Favorite[]
     },
     selectors: {
         selectTheme: (state) => state.theme,
         selectFavoriteMovies: (state) => state.favoriteMovies
     },
     reducers: (create) => ({
-        toggleFavoritesMovies: create.asyncThunk((movie:Favorite) => {
+        toggleFavoritesMovies: create.asyncThunk((movie: Favorite) => {
             const key = localStorage.getItem(FavoriteMovies)
             const store = key ? JSON.parse(key) : []
 
@@ -38,9 +37,18 @@ export const appSlice = createAppSlice({
                 state.favoriteMovies = action.payload
             }
         }),
-        toggleTheme: create.reducer((state, action) => {
-            // state.theme = action.payload
-        })
+        toggleTheme: create.asyncThunk(() => {
+                const currentTheme = localStorage.getItem(ThemeMode);
+                const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+                localStorage.setItem(ThemeMode, nextTheme);
+                return nextTheme;
+            },
+            {
+                fulfilled: (state, action) => {
+                    state.theme = action.payload
+                }
+            })
     })
 })
 

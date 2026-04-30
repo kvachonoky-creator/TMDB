@@ -5,12 +5,28 @@ import s from './Header.module.css'
 import {Category} from "@/common/constants";
 import {getCategoryPath} from "@/common/utils";
 import {Container} from "@/common/components/Container/Container.tsx";
+import {useAppDispatch} from "@/common/hooks";
+import {toggleTheme} from "@/app/model/appSlice.ts";
+import type {Theme} from "@/app/model/appSlice.types.ts";
 
-export const Header = () => {
+type Props = {
+    className: Theme;
+}
+
+export const Header = ({className}: Props) => {
+
+    const dispatch = useAppDispatch();
+
+    const onClickHandler = () => {
+        dispatch(toggleTheme())
+    }
+
+    const themeButton = className === 'dark' ? '🌙' :  '☀️'
+
     return (
         <header>
             <Container>
-                <div className={s.headerWrapper}>
+                <div className={`${s.headerWrapper} ${s[className]}`}>
                     <NavLink to={Path.Main}><img src={logo} alt="logo"/></NavLink>
                     <nav className={s.navContainer}>
                         <NavLink className={({isActive}) => isActive ? s.active : ''}
@@ -24,7 +40,7 @@ export const Header = () => {
                         <NavLink className={({isActive}) => isActive ? s.active : ''}
                                  to={Path.Favorites}>Favorites</NavLink>
                     </nav>
-                    <button>*_*</button>
+                    <button onClick={onClickHandler}>{themeButton}</button>
                 </div>
             </Container>
         </header>

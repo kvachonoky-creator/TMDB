@@ -1,7 +1,7 @@
 import type {Movie} from "@/feature/Movie/api/movieApi.types.ts";
 import s from './MovieSection.module.css'
 import {Link} from "react-router";
-import {MovieCards} from "@/common/components/movieCards/movieCards.tsx";
+import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 
 type Props = {
     title: string,

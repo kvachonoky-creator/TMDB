@@ -1,0 +1,17 @@
+.dark{
+    background-color: #0b1120;
+    color: #e2e8f0;
+}
+
+.light{
+    background-color: #ffffff;
+    color: #213547;
+}
+
+header {
+    background: #302424;
+}
+
+footer {
+    background: #2b2020;
+}

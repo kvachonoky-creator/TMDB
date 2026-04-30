@@ -1,1 +1,1 @@
-export {type FavoriteMovies} from './types'
+export * from './types'

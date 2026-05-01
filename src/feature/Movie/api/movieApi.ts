@@ -2,28 +2,45 @@ import {baseApi} from "@/app/api/baseApi.ts";
 import type {
     BaseResponse,
     GenresResponse,
-    MovieCredits, MovieDetails, MovieSimilarResponse,
+    MovieCredits,
+    MovieDetails,
+    MovieSimilarResponse,
     SearchQueryParams,
     SortBy
-} from "@/feature/Movie/api/movieApi.types.ts";
+} from "@/common/types";
+import {
+    BaseResponseSchema,
+    GenresResponseSchema,
+    MovieCreditsSchema,
+    MovieDetailsSchema,
+    MovieSimilarResponseSchema
+} from "@/feature/Movie/model/movie.schemas.ts";
+import {zodCatch} from "@/common/utils";
 
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getCategoryMovies: build.query<BaseResponse, string>({
-            query: (category) => `movie/${category}`
+        getCategoryMovies: build.query<BaseResponse, { category: string, params?: { page: number } }>({
+            query: ({category, params}) => ({
+                method: 'GET',
+                url: `movie/${category}`,
+                params
+            }),
+            ...zodCatch(BaseResponseSchema)
         }),
         searchMovies: build.query<BaseResponse, SearchQueryParams>({
             query: (params) => ({
                 method: 'GET',
                 url: 'search/movie',
                 params
-            })
+            }),
+            ...zodCatch(BaseResponseSchema)
         }),
         getDiscoverMovies: build.query<BaseResponse, {
             sort_by: SortBy,
             'vote_average.gte': number,
             'vote_average.lte': number,
-            with_genres: string
+            with_genres: string,
+            page: number
         }>({
             query: (params) => {
                 return {
@@ -31,29 +48,34 @@ export const movieApi = baseApi.injectEndpoints({
                     url: 'discover/movie',
                     params
                 }
-            }
+            },
+            ...zodCatch(BaseResponseSchema)
         }),
         getMoviesDetails: build.query<MovieDetails, number>({
             query: (id) => ({
                 method: 'GET',
                 url: `movie/${id}`
-            })
+            }),
+            ...zodCatch(MovieDetailsSchema)
         }),
         getMoviesCredits: build.query<MovieCredits, number>({
             query: (id) => ({
                 method: 'GET',
                 url: `movie/${id}/credits`
-            })
+            }),
+            ...zodCatch(MovieCreditsSchema)
         }),
         getMoviesSimilar: build.query<MovieSimilarResponse, number>({
             query: (id) => ({
                 method: 'GET',
                 url: `movie/${id}/similar`
-            })
+            }),
+            ...zodCatch(MovieSimilarResponseSchema)
         }),
         getMoviesGenre: build.query<GenresResponse, void>({
             query: () => 'genre/movie/list',
-        })
+            ...zodCatch(GenresResponseSchema)
+        }),
     })
 })
 

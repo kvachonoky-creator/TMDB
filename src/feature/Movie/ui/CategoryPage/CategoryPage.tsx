@@ -5,12 +5,19 @@ import s from './CategoryPage.module.css'
 import {Category, CategoryPageTitle} from "@/common/constants";
 import {getCategoryPath} from "@/common/utils";
 import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
-
+import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
+import {useState} from "react";
 
 export const CategoryPage = () => {
     const {categoryName = 'popular'} = useParams();
 
-    const {data, isFetching, isLoading} = useGetCategoryMoviesQuery(categoryName);
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const {data, isFetching, isLoading} = useGetCategoryMoviesQuery({category: categoryName, params: {page: currentPage}});
+
+    if(isLoading) {
+        return <h1>loading...</h1>
+    }
 
     return (
         <section>
@@ -27,7 +34,7 @@ export const CategoryPage = () => {
             <h2>{CategoryPageTitle[categoryName]}</h2>
 
             {data && <MovieCards movies={data.results}/>}
-
+            <Pagination currentPage={data!.page} setCurrentPage={setCurrentPage} pagesCount={data!.total_pages}/>
         </section>
     )
 }

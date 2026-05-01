@@ -8,14 +8,13 @@ import {Path} from "@/common/routing";
 import {Category} from "@/common/constants";
 import {Container} from "@/common/components/Container/Container.tsx";
 import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
-import {Skeletons} from "@/common/components/Skeleton/Skeleton.tsx";
 
 export const MainPage = () => {
 
-    const {data: popularMovies} = useGetCategoryMoviesQuery(Category.Popular)
-    const {data: topRatedMovies} = useGetCategoryMoviesQuery(Category.TopRated)
-    const {data: upcomingMovies} = useGetCategoryMoviesQuery(Category.Upcoming)
-    const {data: nowPlayingMovies, isFetching, isLoading} = useGetCategoryMoviesQuery(Category.NowPlaying) // Кастомный хук? можно в массив, а потом отмапить, чтобы компонента была меньше, сделать может в хуке массив объектов, а потом тут отмапить, но как делать скелетон изначальный, нужно подумать + у меня должен background меняться
+    const {data: popularMovies} = useGetCategoryMoviesQuery({category: Category.Popular})
+    const {data: topRatedMovies} = useGetCategoryMoviesQuery({category: Category.TopRated})
+    const {data: upcomingMovies} = useGetCategoryMoviesQuery({category: Category.Upcoming})
+    const {data: nowPlayingMovies, isFetching, isLoading} = useGetCategoryMoviesQuery({category: Category.NowPlaying}) // Кастомный хук? можно в массив, а потом отмапить, чтобы компонента была меньше, сделать может в хуке массив объектов, а потом тут отмапить, но как делать скелетон изначальный, нужно подумать + у меня должен background меняться
 
     const navigate = useNavigate()
 
@@ -32,15 +31,15 @@ export const MainPage = () => {
         })
     }
 
-    if (isLoading) {
-        return <Skeletons/>
-    }
-
     return (
         <Container>
             {isFetching && <LinearProgress/>}
+            <div>
+                <h1>Welcome to TMDB!</h1>
+                <h2>You can find a movie for every taste here.</h2>
+                <SearchInput onClick={(title) => onClickHandler(title)}/>
+            </div>
             <img className={s.backdrop} src={backdrop} alt="backdrop image"/>
-            <SearchInput onClick={(title) => onClickHandler(title)}/>
             {popularMovies && <MovieSection to={getCategoryPath(Category.Popular)} title='Popular Movies'
                                             movies={popularMovies.results.slice(0, 6)}/>}
             {topRatedMovies && <MovieSection to={getCategoryPath(Category.TopRated)} title='Top Rated'

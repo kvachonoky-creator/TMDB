@@ -1,17 +1,17 @@
 import * as z from "zod"
 
 // --- Movie ---
-export const Movie = z.object({
+export const MovieSchema = z.object({
     adult: z.boolean(),
-    backdrop_path: z.string(),
+    backdrop_path: z.string().nullable(),
     genre_ids: z.array(z.number()),
     id: z.number(),
     original_language: z.string(),
     original_title: z.string(),
     overview: z.string(),
     popularity: z.number(),
-    poster_path: z.string(),
-    release_date: z.iso.date(),
+    poster_path: z.string().nullable(),
+    release_date: z.string(),
     title: z.string(),
     video: z.boolean(),
     vote_average: z.number(),
@@ -25,16 +25,16 @@ export const Date = z.object({
 });
 
 // --- BaseResponse ---
-export const BaseResponse = z.object({
+export const BaseResponseSchema = z.object({
     dates: Date.optional(),
     page: z.number(),
-    results: z.array(Movie),
+    results: z.array(MovieSchema),
     total_pages: z.number(),
     total_results: z.number(),
 });
 
 // --- SearchQueryParams ---
-export const SearchQueryParams = z.object({
+export const SearchQueryParamsSchema = z.object({
     query: z.string(),
     include_adult: z.boolean().optional(),
     language: z.string().optional(),
@@ -47,7 +47,7 @@ export const SearchQueryParams = z.object({
 // --- Sort ---
 
 
-export const SortBy = z.string().regex(
+export const SortBySchema = z.string().regex(
     /^(popularity|primary_release_date|title|vote_average)\.(asc|desc)$/
 );
 
@@ -57,7 +57,7 @@ const Genres = z.object({
     name: z.string(),
 });
 
-export const GenresResponse = z.object({
+export const GenresResponseSchema = z.object({
     genres: z.array(Genres),
 });
 
@@ -92,7 +92,7 @@ const SpokenLanguage = z.object({
     name: z.string(),
 });
 
-export const MovieDetails = z.object({
+export const MovieDetailsSchema = z.object({
     adult: z.boolean(),
     backdrop_path: z.string().nullable(),
     belongs_to_collection: Collection.nullable(),
@@ -147,7 +147,7 @@ const CrewMember = BasePerson.extend({
     job: z.string(),
 });
 
-export const MovieCredits = z.object({
+export const MovieCreditsSchema = z.object({
     id: z.number(),
     cast: z.array(CastMember),
     crew: z.array(CrewMember),
@@ -171,18 +171,9 @@ const MovieSimilarItem = z.object({
     vote_count: z.number(),
 });
 
-export const MovieSimilarResponse = z.object({
+export const MovieSimilarResponseSchema = z.object({
     page: z.number(),
     results: z.array(MovieSimilarItem),
     total_pages: z.number(),
     total_results: z.number(),
 });
-
-export type Movie = z.infer<typeof Movie>;
-export type BaseResponse = z.infer<typeof BaseResponse>;
-export type SearchQueryParams = z.infer<typeof SearchQueryParams>;
-export type SortBy = z.infer<typeof SortBy>;
-export type GenresResponse = z.infer<typeof GenresResponse>;
-export type MovieDetails = z.infer<typeof MovieDetails>;
-export type MovieCredits = z.infer<typeof MovieCredits>;
-export type MovieSimilarResponse = z.infer<typeof MovieSimilarResponse>;

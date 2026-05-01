@@ -8,14 +8,15 @@ type Props = {
     title: string,
     movies: Movie[],
     to: string,
+    columns?: number;
 }
 
-export const MovieSection = ({title, movies, to}: Props) => {
+export const MovieSection = ({title, movies, to, columns}: Props) => {
     return (
         <section>
             <h2>{title}</h2>
             <Link to={to} className={s.viewMore} title='View more'>View more</Link>
-            <MovieCards movies={movies}/>
+            <MovieCards movies={movies} columns={columns}/>
         </section>
     );
 };

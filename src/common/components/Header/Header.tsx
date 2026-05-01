@@ -24,9 +24,9 @@ export const Header = ({className}: Props) => {
     const themeButton = className === 'dark' ? '🌙' :  '☀️'
 
     return (
-        <header>
+        <header className={className === 'dark' ? s.dark : ''}>
             <Container>
-                <div className={`${s.headerWrapper} ${s[className]}`}>
+                <div className={s.headerWrapper}>
                     <NavLink to={Path.Main}><img src={logo} alt="logo"/></NavLink>
                     <nav className={s.navContainer}>
                         <NavLink className={({isActive}) => isActive ? s.active : ''}

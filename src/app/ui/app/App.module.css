@@ -1,17 +1,17 @@
-.dark{
-    background-color: #0b1120;
-    color: #e2e8f0;
+.light {
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+    --color-border: #cccccc;
+    --color-bg: #f4f5f7;
+    background: var(--color-bg);
+    min-height: 100vh;
 }
 
-.light{
-    background-color: #ffffff;
-    color: #213547;
-}
-
-header {
-    background: #302424;
-}
-
-footer {
-    background: #2b2020;
+.dark {
+    --color-text-primary: #e8eaf0;
+    --color-text-secondary: #9ba3b8;
+    --color-border: rgba(255, 255, 255, 0.15);
+    --color-bg: #0d1117;
+    background: var(--color-bg);
+    min-height: 100vh;
 }

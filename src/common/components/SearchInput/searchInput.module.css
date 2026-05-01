@@ -1,4 +1,54 @@
-.container {
+.wrapper {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
+    max-width: 520px;
+}
+
+.input {
+    flex: 1;
+    height: 48px;
+    padding: 0 20px;
+    border-radius: 999px;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: #111;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    transition: box-shadow 0.18s;
+}
+
+.input::placeholder {
+    color: #888;
+}
+
+.input:focus {
+    box-shadow: 0 0 0 3px rgba(109, 180, 255, 0.45), 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.button {
+    height: 48px;
+    padding: 0 28px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    background: #1d6fa4;
+    box-shadow: 0 2px 12px rgba(29,111,164,0.35);
+    transition: background 0.18s, transform 0.14s;
+    white-space: nowrap;
+}
+
+.button:hover {
+    background: #165a88;
+    transform: translateY(-1px);
+}
+
+.button:active {
+    transform: translateY(0);
 }

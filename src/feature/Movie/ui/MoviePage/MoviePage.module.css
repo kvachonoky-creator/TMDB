@@ -1,0 +1,230 @@
+.section {
+    padding: 32px 0 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+
+.movieInfo {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: start;
+    position: relative;
+}
+
+
+.poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    display: block;
+}
+
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 4px;
+}
+
+
+.backBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 36px;
+    padding: 0 20px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-border, #ccc);
+    background: transparent;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #111);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+}
+
+.backBtn:hover {
+    background: var(--color-text-primary, #111);
+    color: #fff;
+    border-color: var(--color-text-primary, #111);
+}
+
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text-primary, #111);
+    margin: 0;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+}
+
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.meta span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #555);
+    font-weight: 500;
+}
+
+
+.ratingBadge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #d4a017;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.ratingGreen { background: #21c375; }
+.ratingYellow { background: #d4a017; }
+.ratingRed { background: #e63946; }
+
+
+.overview {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary, #555);
+    margin: 0;
+    max-width: 680px;
+}
+
+
+.genresTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #111);
+    margin: 0 0 8px;
+}
+
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.genre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-primary, #333);
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-border, #ccc);
+    background: transparent;
+}
+
+.castSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.castTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #111);
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.castGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+}
+
+.actor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.actorImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actor:hover .actorImg {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.actorName {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #111);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.actorCharacter {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #777);
+    margin: 0;
+}
+
+.similarTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #111);
+    margin: 0 0 20px;
+    letter-spacing: -0.3px;
+}
+
+@media (max-width: 900px) {
+    .movieInfo {
+        grid-template-columns: 200px 1fr;
+        gap: 24px;
+    }
+    .castGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .movieInfo {
+        grid-template-columns: 1fr;
+    }
+    .poster {
+        max-width: 260px;
+    }
+    .castGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

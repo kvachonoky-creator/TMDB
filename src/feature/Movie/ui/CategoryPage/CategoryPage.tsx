@@ -7,6 +7,7 @@ import {getCategoryPath} from "@/common/utils";
 import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
 import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
 import {useState} from "react";
+import {Container} from "@/common/components/Container/Container.tsx";
 
 export const CategoryPage = () => {
     const {categoryName = 'popular'} = useParams();
@@ -20,21 +21,25 @@ export const CategoryPage = () => {
     }
 
     return (
-        <section>
+        <Container>
             {isFetching && <LinearProgress/>}
-            <NavLink to={getCategoryPath(Category.Popular)}
-                     className={({isActive}) => isActive ? s.active : ''}>Popular Movies</NavLink>
-            <NavLink to={getCategoryPath(Category.TopRated)}
-                     className={({isActive}) => isActive ? s.active : ''}>Top Rated Movies</NavLink>
-            <NavLink to={getCategoryPath(Category.NowPlaying)}
-                     className={({isActive}) => isActive ? s.active : ''}>Now Playing Movies</NavLink>
-            <NavLink to={getCategoryPath(Category.Upcoming)}
-                     className={({isActive}) => isActive ? s.active : ''}>Upcoming Movies</NavLink>
+            <section className={s.page}>
+                <div className={s.tabs}>
+                    <NavLink to={getCategoryPath(Category.Popular)}
+                             className={({isActive}) => isActive ? s.active : ''}>Popular Movies</NavLink>
+                    <NavLink to={getCategoryPath(Category.TopRated)}
+                             className={({isActive}) => isActive ? s.active : ''}>Top Rated Movies</NavLink>
+                    <NavLink to={getCategoryPath(Category.Upcoming)}
+                             className={({isActive}) => isActive ? s.active : ''}>Upcoming Movies</NavLink>
+                    <NavLink to={getCategoryPath(Category.NowPlaying)}
+                             className={({isActive}) => isActive ? s.active : ''}>Now Playing Movies</NavLink>
+                </div>
 
-            <h2>{CategoryPageTitle[categoryName]}</h2>
+                <h2 className={s.title}>{CategoryPageTitle[categoryName]}</h2>
 
-            {data && <MovieCards movies={data.results}/>}
-            <Pagination currentPage={data!.page} setCurrentPage={setCurrentPage} pagesCount={data!.total_pages}/>
-        </section>
+                {data && <MovieCards movies={data.results}/>}
+                <Pagination currentPage={data!.page} setCurrentPage={setCurrentPage} pagesCount={data!.total_pages}/>
+            </section>
+        </Container>
     )
 }

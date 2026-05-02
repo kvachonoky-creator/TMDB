@@ -13,6 +13,9 @@ export const SearchInput = ({onClick}: Props) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
         setValue(e.currentTarget.value)
+        if (e.currentTarget.value === '') {
+            onClick('')
+        }
     }
 
     const onClickHandler = () => {

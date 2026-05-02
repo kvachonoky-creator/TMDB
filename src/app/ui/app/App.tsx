@@ -8,14 +8,14 @@ import {ToastContainer} from "react-toastify";
 
 export const App = () => {
 
-const theme = useAppSelector(selectTheme);
-
-    console.log(theme)
+const theme= useAppSelector(selectTheme);
 
     return (
-        <div className={s[theme]}>
+        <div className={`${s[theme]} ${s.appContainer}`}>
             <Header className={theme}/>
-            <Routing/>
+            <div className={s.mainContainer}>
+                <Routing/>
+            </div>
             <Footer className={theme}/>
             <ToastContainer />
         </div>

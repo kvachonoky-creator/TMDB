@@ -6,6 +6,7 @@ import {useNavigate} from "react-router";
 import {Path} from "@/common/routing";
 import {type CSSProperties, type MouseEvent} from 'react'
 import s from './movieCards.module.css'
+import {getRatingClass} from "@/common/utils";
 
 type Props = {
     movies: Favorite[];
@@ -18,7 +19,6 @@ export const MovieCards = ({movies, columns = 5}: Props) => {
     const favoriteMovies = useAppSelector(selectFavoriteMovies); //
 
     const isFavorite = (id: number) => favoriteMovies.some(m => m.id === id);
-
 
     const onClickHandler = (movie: Favorite, e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -35,7 +35,7 @@ export const MovieCards = ({movies, columns = 5}: Props) => {
                         onClick={(e) => onClickHandler(movie, e)}>♥</button>
                     <img src={movie.poster_path? IMAGE_BASE_URL + movie.poster_path : FilmPoster} alt="movie backdrop"/>
                     <h3>{movie.title}</h3>
-                    <span>{movie.vote_average.toFixed(1)}</span>
+                    <span className={`${s[getRatingClass(movie.vote_average)]}`}>{movie.vote_average.toFixed(1)}</span>
                 </article>
             ))}
         </div>

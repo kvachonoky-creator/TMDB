@@ -28,11 +28,13 @@ export const movieApi = baseApi.injectEndpoints({
             ...zodCatch(BaseResponseSchema)
         }),
         searchMovies: build.query<BaseResponse, SearchQueryParams>({
-            query: (params) => ({
-                method: 'GET',
-                url: 'search/movie',
-                params
-            }),
+            query: (params) => {
+                return {
+                    method: 'GET',
+                    url: 'search/movie',
+                    params
+                }
+            },
             ...zodCatch(BaseResponseSchema)
         }),
         getDiscoverMovies: build.query<BaseResponse, {

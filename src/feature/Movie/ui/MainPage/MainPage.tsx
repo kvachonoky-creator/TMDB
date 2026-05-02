@@ -8,6 +8,7 @@ import { Path } from "@/common/routing";
 import { Category } from "@/common/constants";
 import { Container } from "@/common/components/Container/Container.tsx";
 import { LinearProgress } from "@/common/components/LinearProgress/LinearProgress.tsx";
+import {MovieSkeleton} from "@/common/components/MovieSkeleton/MovieSkeleton.tsx";
 
 export const MainPage = () => {
 
@@ -21,6 +22,7 @@ export const MainPage = () => {
     const backdrop = popularMovies ? getRandomBackdrop(popularMovies.results) : undefined
 
     const onClickHandler = (title: string) => {
+        if(!title) return;
         navigate({
             pathname: Path.Search,
             search: `query=${title}`,
@@ -43,13 +45,13 @@ export const MainPage = () => {
             </div>
 
             <div className={s.sections}>
-                {popularMovies && (
+                {popularMovies ? (
                     <MovieSection columns={6}
                         to={getCategoryPath(Category.Popular)}
                         title="Popular Movies"
                         movies={popularMovies.results.slice(0, 6)}
                     />
-                )}
+                ) : <MovieSkeleton/>}
                 {topRatedMovies && (
                     <MovieSection columns={6}
                         to={getCategoryPath(Category.TopRated)}

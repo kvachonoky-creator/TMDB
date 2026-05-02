@@ -4,14 +4,13 @@
     gap: 20px;
 }
 
-.header {
+.sectionHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.title {
-    font-family: 'Montserrat', 'Georgia', serif;
+.sectionTitle {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-primary, #111);
@@ -20,10 +19,9 @@
 }
 
 .viewMore {
-    font-family: 'Montserrat', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--color-text-secondary, #555);
+    color: var(--color-text-secondary, #fff);
     text-decoration: none;
     border: 1.5px solid var(--color-border, #ccc);
     padding: 6px 16px;
@@ -33,7 +31,7 @@
 
 .viewMore:hover {
     background: var(--color-text-primary, #111);
-    color: #fff;
+    color: #3385df;
     border-color: var(--color-text-primary, #111);
 }
 

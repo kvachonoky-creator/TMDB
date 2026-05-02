@@ -48,8 +48,7 @@
 }
 
 .movie h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-text-primary);
     margin: 0;
@@ -64,30 +63,30 @@
 
 .movie span {
     position: absolute;
-    bottom: 42px;
+top: 230px;
     right: 8px;
-    min-width: 36px;
-    height: 36px;
+    min-width: 42px;
+    height: 42px;
     padding: 0 6px;
     border-radius: 999px;
-    background: #21c375;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Montserrat', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
     color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
-    white-space: nowrap;
 }
 
+.ratingGreen { background: #21c375; }
+.ratingYellow { background: #d4a017; }
+.ratingRed { background: #e63946; }
 
 
 .likeBtn {
     position: absolute;
     top: 8px;
-    left: 8px;
+    right: 8px;
     z-index: 2;
     width: 42px;
     height: 42px;
@@ -105,17 +104,17 @@
 }
 
 .likeBtn:hover {
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.75);
     color: rgba(255, 100, 100, 0.85);
     transform: scale(1.15);
 }
 
 .liked {
-    color: #e63946;
+    color: #c1ff0c;
 }
 
 .liked:hover {
-    color: #c1121f;
+    color: #c1ff0c;
 }
 
 .section {
@@ -139,7 +138,6 @@
 }
 
 .viewMore {
-    font-family: 'Montserrat', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
     color:var(--color-text-secondary);

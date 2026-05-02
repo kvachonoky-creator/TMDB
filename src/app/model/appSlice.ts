@@ -6,8 +6,8 @@ import {createAppSlice} from "@/common/utils";
 export const appSlice = createAppSlice({
     name: 'appSlice',
     initialState: {
-        theme: 'light' as Theme,
-        favoriteMovies: [] as Favorite[]
+        theme: localStorage.getItem(ThemeMode) || "light" as Theme,
+        favoriteMovies: JSON.parse(localStorage.getItem(FavoriteMovies)|| '[]') as Favorite[]
     },
     selectors: {
         selectTheme: (state) => state.theme,

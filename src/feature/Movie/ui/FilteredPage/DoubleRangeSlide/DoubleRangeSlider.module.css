@@ -49,19 +49,24 @@
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.zIndex3 { z-index: 3; }
-.zIndex4 { z-index: 4; }
+.zIndex3 {
+    z-index: 3;
+}
+
+.zIndex4 {
+    z-index: 4;
+}
 
 .thumb:last-of-type {
     z-index: 5;
 }
 
 .values {
+    color: var(--color-text-primary, #111111);
     margin-top: 20px;
     text-align: center;
     font-weight: bold;
-    font-family: sans-serif;
 }

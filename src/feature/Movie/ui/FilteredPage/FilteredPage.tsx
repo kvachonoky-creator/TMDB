@@ -3,14 +3,11 @@ import {useGetDiscoverMoviesQuery, useGetMoviesGenreQuery} from "@/feature/Movie
 import {type ChangeEvent, useState} from "react";
 import s from './FilteredPage.module.css'
 import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
-import {
-    DoubleRangeSlider
-} from "@/feature/Movie/ui/FilteredPage/FilteredOptions/DoubleRangeSlide/DoubleRangeSlider.tsx";
 import {useDebounce} from "@/common/hooks";
-import {SORT_FIELDS, SORT_ORDERS} from "@/common/types";
-import type {SortBy} from "@/feature/Movie/api/movieApi.types.ts";
 import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
 import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
+import {SORT_FIELDS, SORT_ORDERS, type SortBy} from "@/common/types";
+import {DoubleRangeSlider} from "@/feature/Movie/ui/FilteredPage/DoubleRangeSlide/DoubleRangeSlider.tsx";
 
 
 const initMin = 0
@@ -65,9 +62,6 @@ export const FilteredPage = () => {
         }
         setFilters(updatedParams);
     }
-
-    console.log(filters)
-
     const onHandleReset = () => {
         setFilters({
             sort_by: 'popularity.desc',
@@ -92,13 +86,13 @@ export const FilteredPage = () => {
                             <select name="sortBy" id="sort" onChange={onchangeHandlerSelect}>
                                 <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.DESC}`}>Popularity↓
                                 </option>
-                                <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.ASC}`}>Popularity↑</option>
-                                <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.DESC}`}>Rating↓</option>
-                                <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.ASC}`}>Rating↑</option>
-                                <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.DESC}`}>Release Date↓</option>
-                                <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.ASC}`}>Release Date↑</option>
-                                <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.DESC}`}>Title A-Z↓</option>
-                                <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.ASC}`}>Title Z-A↑</option>
+                                <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.ASC}`}>Popularity ↑</option>
+                                <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.DESC}`}>Rating ↓</option>
+                                <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.ASC}`}>Rating ↑</option>
+                                <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.DESC}`}>Release Date ↓</option>
+                                <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.ASC}`}>Release Date ↑</option>
+                                <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.DESC}`}>Title A-Z</option>
+                                <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.ASC}`}>Title Z-A</option>
                             </select>
                             <DoubleRangeSlider
                                 initMin={initMin}

@@ -1,14 +1,16 @@
 .root {
-    background: #23272f;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
     overflow: hidden;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 9999;
 }
 
 .bar {
     height: 100%;
-    background: #ddd;
+    background:var(--color-text-primary, #111111);
     position: absolute;
 }
 

@@ -1,0 +1,6 @@
+.illustration {
+    width: 200px;
+    height: 120px;
+    color: var(--color-text-primary, #111);
+    margin-bottom: 8px;
+}

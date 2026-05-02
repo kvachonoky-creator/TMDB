@@ -8,13 +8,7 @@ import {Container} from "@/common/components/Container/Container.tsx";
 import {ActorPoster, FilmPoster, IMAGE_BASE_URL} from "@/common/constants";
 import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import s from './MoviePage.module.css'
-import {formatRuntime} from "@/common/utils";
-
-function getRatingClass(rating: number) {
-    if (rating >= 7) return s.ratingGreen
-    if (rating >= 5.5) return s.ratingYellow
-    return s.ratingRed
-}
+import {formatRuntime, getRatingClass} from "@/common/utils";
 
 
 export const MoviePage = () => {
@@ -50,7 +44,7 @@ export const MoviePage = () => {
 
                             <div className={s.meta}>
                                 <span>Release year: {year}</span>
-                                <div className={`${s.ratingBadge} ${getRatingClass(rating)}`}>
+                                <div className={`${s.ratingBadge} ${s[getRatingClass(rating)]}`}>
                                     {rating.toFixed(1)}
                                 </div>
                                 <span>Runtime: {formatRuntime(movie.runtime)}</span>
@@ -85,7 +79,7 @@ export const MoviePage = () => {
                     {similar.results.length > 0 && (
                         <div>
                             <h2 className={s.similarTitle}>Similar Movies</h2>
-                            <MovieCards movies={similar.results.slice(0, 6)}/>
+                            <MovieCards movies={similar.results.slice(0, 6)} columns={6}/>
                         </div>
                     )}
                 </section>

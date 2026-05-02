@@ -1,8 +1,25 @@
+
+.appContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContainer {
+    flex-grow: 1;
+}
+
 .light {
     --color-text-primary: #111111;
     --color-text-secondary: #555555;
     --color-border: #cccccc;
     --color-bg: #f4f5f7;
+    --input-bg: rgba(0, 0, 0, 0.06);
+    --color-surface: #e8eaed;
+    --color-input-bg: #ffffff;
+    --input-border: rgba(0, 0, 0, 0.15);
+    --input-border-focus: rgba(0, 0, 0, 0.3);
+    --input-shadow: rgba(0, 0, 0, 0.08);
+    --input-btn-hover: rgba(0, 0, 0, 0.06);
     background: var(--color-bg);
     min-height: 100vh;
 }
@@ -12,6 +29,13 @@
     --color-text-secondary: #9ba3b8;
     --color-border: rgba(255, 255, 255, 0.15);
     --color-bg: #0d1117;
+    --color-surface: #141c2c;
+    --color-input-bg: #1e2a3a;
+    --input-bg: rgba(255, 255, 255, 0.08);
+    --input-border: rgba(255, 255, 255, 0.15);
+    --input-border-focus: rgba(255, 255, 255, 0.4);
+    --input-shadow: rgba(255, 255, 255, 0.06);
+    --input-btn-hover: rgba(255, 255, 255, 0.08);
     background: var(--color-bg);
     min-height: 100vh;
 }

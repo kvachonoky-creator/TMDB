@@ -57,7 +57,6 @@
 
 
 .title {
-    font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary, #111);
@@ -75,8 +74,7 @@
 }
 
 .meta span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--color-text-secondary, #555);
     font-weight: 500;
 }
@@ -90,7 +88,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Montserrat', sans-serif;
     font-size: 0.78rem;
     font-weight: 700;
     color: #fff;
@@ -104,8 +101,7 @@
 
 
 .overview {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.7;
     color: var(--color-text-secondary, #555);
     margin: 0;
@@ -114,7 +110,6 @@
 
 
 .genresTitle {
-    font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 700;
     color: var(--color-text-primary, #111);
@@ -128,8 +123,7 @@
 }
 
 .genre {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--color-text-primary, #333);
     padding: 5px 14px;
@@ -145,7 +139,6 @@
 }
 
 .castTitle {
-    font-family: 'Montserrat', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-text-primary, #111);
@@ -183,8 +176,7 @@
 }
 
 .actorName {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-text-primary, #111);
     margin: 0;
@@ -192,14 +184,12 @@
 }
 
 .actorCharacter {
-    font-family: 'Montserrat', sans-serif;
     font-size: 0.75rem;
     color: var(--color-text-secondary, #777);
     margin: 0;
 }
 
 .similarTitle {
-    font-family: 'Montserrat', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-text-primary, #111);

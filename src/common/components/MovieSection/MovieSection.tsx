@@ -13,9 +13,11 @@ type Props = {
 
 export const MovieSection = ({title, movies, to, columns}: Props) => {
     return (
-        <section>
-            <h2>{title}</h2>
-            <Link to={to} className={s.viewMore} title='View more'>View more</Link>
+        <section className={s.section}>
+            <div className={s.sectionHeader}>
+                <h2 className={s.sectionTitle}>{title}</h2>
+                <Link to={to} className={s.viewMore}>View more</Link>
+            </div>
             <MovieCards movies={movies} columns={columns}/>
         </section>
     );

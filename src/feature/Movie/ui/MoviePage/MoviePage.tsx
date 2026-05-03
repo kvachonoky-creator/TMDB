@@ -9,6 +9,7 @@ import {ActorPoster, FilmPoster, IMAGE_BASE_URL} from "@/common/constants";
 import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import s from './MoviePage.module.css'
 import {formatRuntime, getRatingClass} from "@/common/utils";
+import {MoviePageSkeleton} from "@/feature/Movie/ui/MoviePage/MoviePageSkeleton/MoviePageSkeleton.tsx";
 
 
 export const MoviePage = () => {
@@ -21,13 +22,19 @@ export const MoviePage = () => {
 
     const onClickHandler = () => navigate(-1)
 
-    if (!movie && !actors && !similar) {
-        return <span>loading...</span>
+
+    if (!movie || !similar) {
+        return (
+            <Container>
+                <MoviePageSkeleton/>
+            </Container>
+        )
     }
 
     if (movie && actors && similar) {
         const year = movie.release_date?.slice(0, 4)
         const rating = movie.vote_average
+
 
         return (
             <Container>

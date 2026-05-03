@@ -1,5 +1,5 @@
 import type {Theme} from "@/app/model/appSlice.types.ts";
-import type {Favorite} from "@/common/types/types.ts";
+import type {Favorite, Movie} from "@/common/types/types.ts";
 import {FavoriteMovies, ThemeMode} from "@/common/constants";
 import {createAppSlice} from "@/common/utils";
 
@@ -7,7 +7,7 @@ export const appSlice = createAppSlice({
     name: 'appSlice',
     initialState: {
         theme: localStorage.getItem(ThemeMode) || "light" as Theme,
-        favoriteMovies: JSON.parse(localStorage.getItem(FavoriteMovies)|| '[]') as Favorite[]
+        favoriteMovies: JSON.parse(localStorage.getItem(FavoriteMovies) || '[]') as Favorite[]
     },
     selectors: {
         selectTheme: (state) => state.theme,
@@ -18,7 +18,7 @@ export const appSlice = createAppSlice({
             const key = localStorage.getItem(FavoriteMovies)
             const store = key ? JSON.parse(key) : []
 
-            const index = store.findIndex(m => m.id === movie.id)
+            const index = store.findIndex((m: Movie) => m.id === movie.id)
             if (index !== -1) {
                 store.splice(index, 1)
             } else {

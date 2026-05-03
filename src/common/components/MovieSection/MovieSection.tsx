@@ -5,7 +5,7 @@ import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import type {Movie} from "@/common/types";
 
 type Props = {
-    title: string,
+    title?: string,
     movies: Movie[],
     to: string,
     columns?: number;

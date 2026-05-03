@@ -8,17 +8,17 @@ import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.
 import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
 import {useState} from "react";
 import {Container} from "@/common/components/Container/Container.tsx";
+import {MovieSectionSkeleton} from "@/common/components/MovieSectionSkeleton/MovieSectionSkeleton.tsx";
 
 export const CategoryPage = () => {
     const {categoryName = 'popular'} = useParams();
 
     const [currentPage, setCurrentPage] = useState(1)
 
-    const {data, isFetching, isLoading} = useGetCategoryMoviesQuery({category: categoryName, params: {page: currentPage}});
-
-    if(isLoading) {
-        return <h1>loading...</h1>
-    }
+    const {data, isFetching} = useGetCategoryMoviesQuery({
+        category: categoryName,
+        params: {page: currentPage}
+    });
 
     return (
         <Container>
@@ -37,8 +37,13 @@ export const CategoryPage = () => {
 
                 <h2 className={s.title}>{CategoryPageTitle[categoryName]}</h2>
 
-                {data && <MovieCards movies={data.results}/>}
-                <Pagination currentPage={data!.page} setCurrentPage={setCurrentPage} pagesCount={data!.total_pages}/>
+                {!data
+                    ?<MovieSectionSkeleton amount={20} columns={5}/>
+                    :<>
+                        <MovieCards movies={data.results}/>
+                        <Pagination currentPage={data!.page} setCurrentPage={setCurrentPage} pagesCount={data.total_pages}/>
+                    </>
+                }
             </section>
         </Container>
     )

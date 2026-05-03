@@ -18,9 +18,7 @@ export const baseApi = createApi({
         if(res.error) {
             handleError(res.error)
         }
-
         return res
-
     },
     endpoints: () => ({}),
 })

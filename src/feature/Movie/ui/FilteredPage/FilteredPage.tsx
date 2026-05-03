@@ -8,6 +8,7 @@ import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.
 import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
 import {SORT_FIELDS, SORT_ORDERS, type SortBy} from "@/common/types";
 import {DoubleRangeSlider} from "@/feature/Movie/ui/FilteredPage/DoubleRangeSlide/DoubleRangeSlider.tsx";
+import {MovieSectionSkeleton} from "@/common/components/MovieSectionSkeleton/MovieSectionSkeleton.tsx";
 
 
 const initMin = 0
@@ -38,7 +39,7 @@ export const FilteredPage = () => {
         page: currentPage
     }
 
-    const {data, isFetching, isLoading} = useGetDiscoverMoviesQuery(params)
+    const {data, isFetching} = useGetDiscoverMoviesQuery(params)
 
     const onchangeHandlerSelect = (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => {
         setFilters({...params, sort_by: e.currentTarget.value as SortBy}) // пока так, потом может поменяю
@@ -71,11 +72,7 @@ export const FilteredPage = () => {
         setMaxValue(initMax)// надо будет переделать
     }
 
-    if(isLoading) {
-        return <h1>loading...</h1>
-    }
 
-    if(data) {
         return (
             <Container>
                 <div className={s.container}>
@@ -113,11 +110,14 @@ export const FilteredPage = () => {
                             <button type='reset' className={s.reset}>Reset filter</button>
                         </form>
                     </aside>
-                    {data && <MovieCards movies={data.results}/>}
+                    {data
+                        ?<>
+                            <MovieCards movies={data.results}/>
+                            <Pagination currentPage={data.page} setCurrentPage={setCurrentPage} pagesCount={data.total_pages}/>
+                        </>
+                    : <MovieSectionSkeleton amount={20} columns={5}/>}
                 </div>
-                <Pagination currentPage={data.page} setCurrentPage={setCurrentPage} pagesCount={data.total_pages}/>
             </Container>
         )
-    }
 
 }

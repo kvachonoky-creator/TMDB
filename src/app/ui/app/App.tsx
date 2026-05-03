@@ -7,10 +7,11 @@ import {selectTheme} from "@/app/model/appSlice.ts";
 import {ToastContainer} from "react-toastify";
 import {SkeletonTheme} from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import type {Theme} from "@/app/model/appSlice.types.ts";
 
 export const App = () => {
 
-const theme= useAppSelector(selectTheme);
+const theme= useAppSelector(selectTheme) as Theme;
 
 const isDark = theme === "dark";
 

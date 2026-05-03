@@ -16,9 +16,11 @@ export const MoviePage = () => {
     const {id} = useParams()
     const navigate = useNavigate()
 
-    const {data: movie} = useGetMoviesDetailsQuery(id)
-    const {data: actors} = useGetMoviesCreditsQuery(id)
-    const {data: similar} = useGetMoviesSimilarQuery(id)
+    const numericId = id ? Number(id) : undefined
+
+    const {data: movie} = useGetMoviesDetailsQuery(numericId)
+    const {data: actors} = useGetMoviesCreditsQuery(numericId)
+    const {data: similar} = useGetMoviesSimilarQuery(numericId)
 
     const onClickHandler = () => navigate(-1)
 

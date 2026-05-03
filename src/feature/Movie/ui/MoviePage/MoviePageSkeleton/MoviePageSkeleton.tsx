@@ -4,7 +4,6 @@ import s from '../MoviePage.module.css'
 export const MoviePageSkeleton = () => {
     return (
         <div className={s.section}>
-
             <div className={s.movieInfo}>
                 <Skeleton height={420} width={280} borderRadius={16}/>
 
@@ -16,9 +15,7 @@ export const MoviePageSkeleton = () => {
                         <Skeleton circle width={40} height={40}/>
                         <Skeleton width={100} height={20}/>
                     </div>
-
                     <Skeleton count={4} height={16}/>
-
                     <div>
                         <Skeleton width={80} height={20} style={{marginBottom: 8}}/>
                         <div style={{display: 'flex', gap: 8}}>

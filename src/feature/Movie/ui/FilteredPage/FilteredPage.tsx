@@ -5,10 +5,10 @@ import s from './FilteredPage.module.css'
 import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import {useDebounce} from "@/common/hooks";
 import {LinearProgress} from "@/common/components/LinearProgress/LinearProgress.tsx";
-import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
 import {SORT_FIELDS, SORT_ORDERS, type SortBy} from "@/common/types";
 import {DoubleRangeSlider} from "@/feature/Movie/ui/FilteredPage/DoubleRangeSlide/DoubleRangeSlider.tsx";
 import {MovieSectionSkeleton} from "@/common/components/MovieSectionSkeleton/MovieSectionSkeleton.tsx";
+import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
 
 
 const initMin = 0
@@ -59,7 +59,10 @@ export const FilteredPage = () => {
             updatedParams = {...params, with_genres: updatedGenres};
 
         } else {
-            updatedParams = {...params, with_genres: updatedGenres.split(',').filter((p => p!== selectedGenre)).join(',')};
+            updatedParams = {
+                ...params,
+                with_genres: updatedGenres.split(',').filter((p => p !== selectedGenre)).join(',')
+            };
         }
         setFilters(updatedParams);
     }
@@ -73,51 +76,56 @@ export const FilteredPage = () => {
     }
 
 
-        return (
-            <Container>
-                <div className={s.container}>
-                    {isFetching && <LinearProgress />}
-                    <aside className={s.filterContainer}>
-                        <h3>Filters / Sort</h3>
-                        <form onReset={onHandleReset}>
-                            <select name="sortBy" id="sort" onChange={onchangeHandlerSelect}>
-                                <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.DESC}`}>Popularity↓
-                                </option>
-                                <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.ASC}`}>Popularity ↑</option>
-                                <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.DESC}`}>Rating ↓</option>
-                                <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.ASC}`}>Rating ↑</option>
-                                <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.DESC}`}>Release Date ↓</option>
-                                <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.ASC}`}>Release Date ↑</option>
-                                <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.DESC}`}>Title A-Z</option>
-                                <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.ASC}`}>Title Z-A</option>
-                            </select>
-                            <DoubleRangeSlider
-                                initMin={initMin}
-                                initMax={initMax}
-                                minValue={minValue}
-                                maxValue={maxValue}
-                                setMaxValue={setMaxValue}
-                                setMinValue={setMinValue}/>
-                            <div className={s.genresContainer}>
-                                {genres && genres.genres.map(genre => {
-                                    return <label className={s.chip} key={genre.id}>
-                                        <input type="checkbox" name="genre" value={genre.id}
-                                               onChange={onChangeHandlerInput}/>
-                                        <span>{genre.name}</span>
-                                    </label>
-                                })}
-                            </div>
-                            <button type='reset' className={s.reset}>Reset filter</button>
-                        </form>
-                    </aside>
-                    {data
-                        ?<>
+    return (
+        <Container>
+            <div className={s.container}>
+                {isFetching && <LinearProgress/>}
+                <aside className={s.filterContainer}>
+                    <h3>Filters / Sort</h3>
+                    <form onReset={onHandleReset}>
+                        <select name="sortBy" id="sort" onChange={onchangeHandlerSelect}>
+                            <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.DESC}`}>Popularity↓
+                            </option>
+                            <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.ASC}`}>Popularity ↑</option>
+                            <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.DESC}`}>Rating ↓</option>
+                            <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.ASC}`}>Rating ↑</option>
+                            <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.DESC}`}>Release Date ↓</option>
+                            <option value={`${SORT_FIELDS.RELEASE_DATE}.${SORT_ORDERS.ASC}`}>Release Date ↑</option>
+                            <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.DESC}`}>Title A-Z</option>
+                            <option value={`${SORT_FIELDS.TITLE}.${SORT_ORDERS.ASC}`}>Title Z-A</option>
+                        </select>
+                        <DoubleRangeSlider
+                            initMin={initMin}
+                            initMax={initMax}
+                            minValue={minValue}
+                            maxValue={maxValue}
+                            setMaxValue={setMaxValue}
+                            setMinValue={setMinValue}/>
+                        <div className={s.genresContainer}>
+                            {genres && genres.genres.map(genre => {
+                                return <label className={s.chip} key={genre.id}>
+                                    <input type="checkbox" name="genre" value={genre.id}
+                                           onChange={onChangeHandlerInput}/>
+                                    <span>{genre.name}</span>
+                                </label>
+                            })}
+                        </div>
+                        <button type='reset' className={s.reset}>Reset filter</button>
+                    </form>
+                </aside>
+                {data
+                    ?
                             <MovieCards movies={data.results}/>
-                            <Pagination currentPage={data.page} setCurrentPage={setCurrentPage} pagesCount={data.total_pages}/>
-                        </>
                     : <MovieSectionSkeleton amount={20} columns={5}/>}
-                </div>
-            </Container>
-        )
+            </div>
+            {data && (
+                <Pagination
+                    currentPage={data.page}
+                    setCurrentPage={setCurrentPage}
+                    pagesCount={data.total_pages}
+                />
+            )}
+        </Container>
+    )
 
 }

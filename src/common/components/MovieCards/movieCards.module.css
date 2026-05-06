@@ -9,13 +9,42 @@
 }
 
 @media (max-width: 800px) {
-    .moviesContainer { grid-template-columns: repeat(3, 1fr); }
+    .moviesContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mobileCarousel {
+        display: flex;
+        grid-template-columns: none;
+        gap: 14px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        padding: 0 2px 14px;
+        scroll-padding-inline: 2px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mobileCarousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobileCarousel .movie {
+        flex: 0 0 clamp(145px, 43vw, 190px);
+        scroll-snap-align: start;
+    }
+
+    .mobileCarousel .movie img {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    }
 }
 
 @media (max-width: 520px) {
-    .moviesContainer { grid-template-columns: repeat(2, 1fr); }
+    .moviesContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
-
 
 .movie {
     position: relative;
@@ -24,11 +53,11 @@
     gap: 10px;
     cursor: pointer;
     border-radius: 12px;
+    transition: transform 0.22s ease;
 }
 
 .movie:hover {
     transform: translateY(-4px);
-    transition: transform 0.22s ease;
 }
 
 
@@ -63,7 +92,7 @@
 
 .movie span {
     position: absolute;
-bottom: 60px;
+    bottom: 60px;
     right: 8px;
     min-width: 42px;
     height: 42px;
@@ -115,41 +144,4 @@ bottom: 60px;
 
 .liked:hover {
     color: #c1ff0c;
-}
-
-.section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.sectionHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sectionTitle {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color:  var(--color-text-primary);
-    margin: 0;
-    letter-spacing: -0.3px;
-}
-
-.viewMore {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color:var(--color-text-secondary);
-    text-decoration: none;
-    border: 1.5px solid var(--color-border);
-    padding: 6px 18px;
-    border-radius: 999px;
-    transition: background 0.18s, color 0.18s, border-color 0.18s;
-}
-
-.viewMore:hover {
-    background: #111;
-    color: #fff;
-    border-color: #111;
 }

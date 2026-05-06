@@ -1,4 +1,4 @@
-header {
+.header {
     position: sticky;
     top: 0;
     z-index: 100;
@@ -35,6 +35,14 @@ header {
 
 .dark .navContainer a + a::before {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.dark .navContainer {
+    background: #141c2c;
+}
+
+.dark .burgerButton span {
+    background: #c9cde0;
 }
 
 .headerWrapper a img {
@@ -88,7 +96,14 @@ header {
     padding: 6px 12px !important;
 }
 
-.headerWrapper > button {
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.themeButton {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -103,6 +118,123 @@ header {
     transition: transform 0.2s ease;
 }
 
-.headerWrapper > button:hover {
+.themeButton:hover {
     transform: rotate(20deg) scale(1.1);
+}
+
+.burgerButton {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.burgerButton span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: #333;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.burgerButton:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.burgerOpen span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.burgerOpen span:nth-child(2) {
+    opacity: 0;
+}
+
+.burgerOpen span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 790px) {
+    .headerWrapper {
+        gap: 16px;
+    }
+
+    .navContainer {
+        position: absolute;
+        top: 68px;
+        right: 16px;
+        width: min(280px, calc(100vw - 32px));
+        display: none;
+        align-items: stretch;
+        flex: initial;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 4px;
+        padding: 14px;
+        border-radius: 8px;
+        background: #efeff3;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        visibility: hidden;
+    }
+
+    .navContainer a {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+
+    .navContainer a + a::before {
+        display: none;
+    }
+
+    .menuOpen {
+        display: flex;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        visibility: visible;
+        animation: burgerMenuIn 0.2s ease;
+    }
+
+    .burgerButton {
+        display: flex;
+    }
+}
+
+@keyframes burgerMenuIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 420px) {
+    .headerWrapper {
+        height: 60px;
+        padding: 0;
+    }
+
+    .headerWrapper a img {
+        height: 38px;
+    }
+
+    .navContainer {
+        top: 60px;
+        right: 8px;
+        width: calc(100vw - 16px);
+    }
 }

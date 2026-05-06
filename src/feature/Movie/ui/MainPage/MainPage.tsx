@@ -46,6 +46,7 @@ export const MainPage = () => {
                                   to={getCategoryPath(Category.Popular)}
                                   title='Popular Movies'
                                   movies={popularMovies.results.slice(0, 6)}
+                                  mobileCarousel
                     />
                 ) : <MovieSectionSkeleton amount={6} title='Popular Movies'  to={getCategoryPath(Category.Popular)}/>}
                 {topRatedMovies ? (
@@ -53,6 +54,7 @@ export const MainPage = () => {
                                   to={getCategoryPath(Category.TopRated)}
                                   title='Top Rated Movies'
                                   movies={topRatedMovies.results.slice(0, 6)}
+                                  mobileCarousel
                     />
                 ) : <MovieSectionSkeleton amount={6} title='Top Rated Movies'  to={getCategoryPath(Category.TopRated)}/>}
                 {upcomingMovies ? (
@@ -60,6 +62,7 @@ export const MainPage = () => {
                                   to={getCategoryPath(Category.Upcoming)}
                                   title='Upcoming'
                                   movies={upcomingMovies.results.slice(0, 6)}
+                                  mobileCarousel
                     />
                 ) : <MovieSectionSkeleton amount={6} title='Upcoming'  to={getCategoryPath(Category.Upcoming)}/>}
                 {nowPlayingMovies ? (
@@ -67,6 +70,7 @@ export const MainPage = () => {
                                   to={getCategoryPath(Category.NowPlaying)}
                                   title="Now Playing"
                                   movies={nowPlayingMovies.results.slice(0, 6)}
+                                  mobileCarousel
                     />
                 ) : <MovieSectionSkeleton amount={6}  title="Now Playing"  to={getCategoryPath(Category.NowPlaying)}/>}
             </div>

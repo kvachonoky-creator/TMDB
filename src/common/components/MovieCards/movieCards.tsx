@@ -11,9 +11,10 @@ import {getRatingClass} from "@/common/utils";
 type Props = {
     movies: Movie[] | Favorite[];
     columns?: number;
+    mobileCarousel?: boolean;
 }
 
-export const MovieCards = ({movies, columns = 5}: Props) => {
+export const MovieCards = ({movies, columns = 5, mobileCarousel = false}: Props) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const favoriteMovies = useAppSelector(selectFavoriteMovies); //
@@ -32,7 +33,10 @@ export const MovieCards = ({movies, columns = 5}: Props) => {
     const onClickArticleHandler = (id: number) => navigate(`${Path.Movie}/${id}`)
 
     return (
-        <div className={s.moviesContainer} style={{'--columns': columns} as CSSProperties}>
+        <div
+            className={`${s.moviesContainer} ${mobileCarousel ? s.mobileCarousel : ''}`}
+            style={{'--columns': columns} as CSSProperties}
+        >
             {movies.map((movie) => (
                 <article className={s.movie} key={movie.id} onClick={() => onClickArticleHandler(movie.id)}>
                     <button

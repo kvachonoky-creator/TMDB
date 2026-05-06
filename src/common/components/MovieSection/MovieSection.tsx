@@ -9,16 +9,17 @@ type Props = {
     movies: Movie[],
     to: string,
     columns?: number;
+    mobileCarousel?: boolean;
 }
 
-export const MovieSection = ({title, movies, to, columns}: Props) => {
+export const MovieSection = ({title, movies, to, columns, mobileCarousel}: Props) => {
     return (
         <section className={s.section}>
             <div className={s.sectionHeader}>
                 <h2 className={s.sectionTitle}>{title}</h2>
                 <Link to={to} className={s.viewMore}>View more</Link>
             </div>
-            <MovieCards movies={movies} columns={columns}/>
+            <MovieCards movies={movies} columns={columns} mobileCarousel={mobileCarousel}/>
         </section>
     );
 };

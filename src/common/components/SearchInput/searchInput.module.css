@@ -2,11 +2,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
     max-width: 520px;
 }
 
 .myInput {
     flex: 1;
+    min-width: 0;
     height: 44px;
     width: 100%;
     padding: 0 16px;
@@ -32,7 +34,8 @@
 
 .container button {
     height: 44px;
-    padding: 0 24px;
+    min-width: 112px;
+    padding: 0 18px;
     border: none;
     border-radius: 999px;
     background: #184ee4;
@@ -55,4 +58,21 @@
     background: #7aabcc;
     cursor: not-allowed;
     transform: none;
+}
+
+@media (max-width: 520px) {
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .myInput {
+        min-width: 100%;
+    }
+
+    .container button {
+        align-self: flex-end;
+        width: 132px;
+        max-width: 100%;
+    }
 }

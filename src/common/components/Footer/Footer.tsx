@@ -8,7 +8,9 @@ type Props = {
 export const Footer = ({className}: Props) => {
     return (
         <footer className={`${s.footer} ${s[className]}`}>
-            © 2025 Kinopoisk Demo · Data courtesy of TMDB.
+            <span>&copy; 2026 Kinopoisk Demo</span>
+            <span className={s.separator}>&middot;</span>
+            <span>Data courtesy of TMDB.</span>
         </footer>
     )
 }

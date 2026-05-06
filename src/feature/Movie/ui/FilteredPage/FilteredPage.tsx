@@ -84,7 +84,7 @@ export const FilteredPage = () => {
                     <h3>Filters / Sort</h3>
                     <form onReset={onHandleReset}>
                         <select name="sortBy" id="sort" onChange={onchangeHandlerSelect}>
-                            <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.DESC}`}>Popularity↓
+                            <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.DESC}`}>Popularity ↓
                             </option>
                             <option value={`${SORT_FIELDS.POPULARITY}.${SORT_ORDERS.ASC}`}>Popularity ↑</option>
                             <option value={`${SORT_FIELDS.VOTE_AVERAGE}.${SORT_ORDERS.DESC}`}>Rating ↓</option>

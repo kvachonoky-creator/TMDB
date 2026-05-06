@@ -3,9 +3,10 @@ import {type ChangeEvent, useState} from "react";
 
 type Props = {
     onClick: (title: string) => void
+    className?: string
 }
 
-export const SearchInput = ({onClick}: Props) => {
+export const SearchInput = ({onClick, className}: Props) => {
 
     const [value, setValue] = useState('')
 
@@ -24,7 +25,7 @@ export const SearchInput = ({onClick}: Props) => {
     }
 
     return (
-        <div className={s.container}>
+        <div className={`${s.container} ${className ?? ''}`}>
             <input value={value} type="search" className={s.myInput}
                    placeholder="Enter a movie title to start searching" onChange={onChangeHandler}/>
             <button disabled={disabled} onClick={onClickHandler}>Search

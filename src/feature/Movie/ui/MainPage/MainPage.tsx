@@ -36,7 +36,7 @@ export const MainPage = () => {
                 <div className={s.heroContent}>
                     <h1 className={s.heroTitle}>WELCOME</h1>
                     <p className={s.heroSubtitle}>Browse highlighted titles from TMDB</p>
-                    <SearchInput onClick={(title) => onClickHandler(title)}/>
+                    <SearchInput className={s.heroSearch} onClick={(title) => onClickHandler(title)}/>
                 </div>
             </div>
 

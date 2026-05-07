@@ -1,0 +1,68 @@
+.section {
+    padding: 32px 0 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.movieInfo {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 4px;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.castSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.castGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+}
+
+.actor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .movieInfo {
+        grid-template-columns: 200px 1fr;
+        gap: 24px;
+    }
+
+    .castGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .movieInfo {
+        grid-template-columns: 1fr;
+    }
+
+    .castGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

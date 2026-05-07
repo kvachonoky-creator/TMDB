@@ -3,13 +3,13 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    position: relative;
 }
 
 .backBtn {
-    position: absolute;
-    top: 0;
-    right: 0;
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     height: 36px;
     padding: 0 20px;
     border-radius: 999px;
@@ -19,11 +19,26 @@
     font-weight: 600;
     color: var(--color-text-primary, #111);
     cursor: pointer;
-    transition: background 0.18s, color 0.18s;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
 }
 
 .backBtn:hover {
     background: var(--color-text-primary, #111);
-    color: #fff;
+    color: var(--color-bg-primary, #fff);
     border-color: var(--color-text-primary, #111);
+}
+
+.backBtn:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-text-primary, #111) 25%, transparent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding-top: 24px;
+    }
+
+    .backBtn {
+        align-self: stretch;
+    }
 }

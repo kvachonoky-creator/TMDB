@@ -1,5 +1,5 @@
 import Skeleton from "react-loading-skeleton";
-import s from '../MoviePage.module.css'
+import s from './MoviePageSkeleton.module.css'
 
 export const MoviePageSkeleton = () => {
     return (

@@ -5,12 +5,11 @@ import {
     useGetMoviesSimilarQuery
 } from "@/feature/Movie/api/movieApi.ts";
 import {Container} from "@/common/components/Container/Container.tsx";
-import {ActorPoster, FilmPoster, IMAGE_BASE_URL} from "@/common/constants";
-import {MovieCards} from "@/common/components/MovieCards/movieCards.tsx";
 import s from './MoviePage.module.css'
-import {formatRuntime, getRatingClass} from "@/common/utils";
 import {MoviePageSkeleton} from "@/feature/Movie/ui/MoviePage/MoviePageSkeleton/MoviePageSkeleton.tsx";
-
+import {MovieInfo} from "@/feature/Movie/ui/MoviePage/MovieInfo/MovieInfo.tsx";
+import {CastsSection} from "@/feature/Movie/ui/MoviePage/CastsSection/CastsSection.tsx";
+import {SimilarMovieSection} from "@/feature/Movie/ui/MoviePage/SimilarMovieSection/SimilarMovieSection.tsx";
 
 export const MoviePage = () => {
     const {id} = useParams()
@@ -19,13 +18,12 @@ export const MoviePage = () => {
     const numericId = id ? Number(id) : undefined
 
     const {data: movie} = useGetMoviesDetailsQuery(numericId)
-    const {data: actors} = useGetMoviesCreditsQuery(numericId)
+    const {data: credits} = useGetMoviesCreditsQuery(numericId)
     const {data: similar} = useGetMoviesSimilarQuery(numericId)
 
     const onClickHandler = () => navigate(-1)
 
-
-    if (!movie || !similar) {
+    if (!movie || !similar || !credits) {
         return (
             <Container>
                 <MoviePageSkeleton/>
@@ -33,66 +31,14 @@ export const MoviePage = () => {
         )
     }
 
-    if (movie && actors && similar) {
-        const year = movie.release_date?.slice(0, 4)
-        const rating = movie.vote_average
-
-
-        return (
-            <Container>
-                <section className={s.section}>
-                    <div className={s.movieInfo}>
-                        <button className={s.backBtn} onClick={onClickHandler}>Back</button>
-                        <img
-                            className={s.poster}
-                            src={movie.poster_path ? IMAGE_BASE_URL + movie.poster_path : FilmPoster}
-                            alt='poster'
-                        />
-                        <div className={s.details}>
-                            <h1 className={s.title}>{movie.title}</h1>
-
-                            <div className={s.meta}>
-                                <span>Release year: {year}</span>
-                                <div className={`${s.ratingBadge} ${s[getRatingClass(rating)]}`}>
-                                    {rating.toFixed(1)}
-                                </div>
-                                <span>Runtime: {formatRuntime(movie.runtime)}</span>
-                            </div>
-                            <p className={s.overview}>{movie.overview}</p>
-                            <div>
-                                <p className={s.genresTitle}>Genres</p>
-                                <div className={s.genres}>
-                                    {movie.genres.map(g => (
-                                        <span className={s.genre} key={g.id}>{g.name}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={s.castSection}>
-                        <h2 className={s.castTitle}>Cast</h2>
-                        <div className={s.castGrid}>
-                            {actors.cast.slice(0, 6).map(a => (
-                                <div className={s.actor} key={a.id}>
-                                    <img
-                                        className={s.actorImg}
-                                        src={a.profile_path ? IMAGE_BASE_URL + a.profile_path : ActorPoster}
-                                        alt={a.name}
-                                    />
-                                    <p className={s.actorName}>{a.name}</p>
-                                    <p className={s.actorCharacter}>{a.character}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    {similar.results.length > 0 && (
-                        <div>
-                            <h2 className={s.similarTitle}>Similar Movies</h2>
-                            <MovieCards movies={similar.results.slice(0, 6)} columns={6}/>
-                        </div>
-                    )}
-                </section>
-            </Container>
-        )
-    }
+    return (
+        <Container>
+            <section className={s.section}>
+                <button className={s.backBtn} onClick={onClickHandler}>Back</button>
+                <MovieInfo movie={movie}/>
+                <CastsSection cast={credits.cast}/>
+                <SimilarMovieSection movies={similar.results}/>
+            </section>
+        </Container>
+    )
 }

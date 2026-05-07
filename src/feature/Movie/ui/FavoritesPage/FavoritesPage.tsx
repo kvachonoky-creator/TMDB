@@ -11,7 +11,6 @@ export const FavoritesPage = () => {
         <Container>
             <section className={s.page}>
                 <h1 className={s.title}>Favorites</h1>
-
                 {movies.length === 0 ? (
                     <p className={s.empty}>No favorite movies yet.<br/>Click ♥ on any movie to add it here.</p>
                 ) : (

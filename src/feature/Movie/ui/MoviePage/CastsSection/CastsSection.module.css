@@ -1,0 +1,68 @@
+.castSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.castTitle {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #111);
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.castGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+}
+
+.actor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.actorImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actor:hover .actorImg {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.actorName {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #111);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.actorCharacter {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #777);
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .castGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .castGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

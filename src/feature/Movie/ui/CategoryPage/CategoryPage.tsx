@@ -34,9 +34,7 @@ export const CategoryPage = () => {
                     <NavLink to={getCategoryPath(Category.NowPlaying)}
                              className={({isActive}) => isActive ? s.active : ''}>Now Playing Movies</NavLink>
                 </div>
-
                 <h2 className={s.title}>{CategoryPageTitle[categoryName]}</h2>
-
                 {!data
                     ?<MovieSectionSkeleton amount={20} columns={5}/>
                     :<>

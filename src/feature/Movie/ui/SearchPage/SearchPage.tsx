@@ -31,11 +31,8 @@ const navigate = useNavigate();
         <Container>
             <section className={s.section}>
                 {isFetching && <LinearProgress/>}
-
                 <h2 className={s.title}>Search Results</h2>
-
                 <SearchInput onClick={(title) => onclickHandler(title)}/>
-
                 {query && <p className={s.hint}>Results for "{query}"</p>}
 
                 {!query && (

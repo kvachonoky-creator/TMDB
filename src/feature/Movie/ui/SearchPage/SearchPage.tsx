@@ -37,7 +37,6 @@ export const SearchPage = () => {
                 <h2 className={s.title}>Search Results</h2>
                 <SearchInput onClick={(title) => onclickHandler(title)}/>
                 <SearchResults query={query} data={data}/>
-
                 {data && data.total_pages > 1 && (
                     <Pagination
                         currentPage={data.page}
@@ -48,6 +47,4 @@ export const SearchPage = () => {
             </section>
         </Container>
     )
-
-
 }

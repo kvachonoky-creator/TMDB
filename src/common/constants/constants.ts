@@ -14,6 +14,16 @@ export const CategoryPageTitle: Record<string, string> = {
     [Category.Upcoming]: 'Upcoming Movies',
 }
 
+export const Path = {
+    Main: '/',
+    Category: '/movies',
+    Filtered: '/filtered',
+    Search: '/search',
+    Favorites: '/favorites',
+    Movie: '/movie',
+    PageNotFound: '*',
+} as const
+
 export const FavoriteMovies = 'Favorite Movies'
 
 export const ThemeMode = 'Theme Mode'

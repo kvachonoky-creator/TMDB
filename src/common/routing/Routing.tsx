@@ -6,17 +6,7 @@ import {SearchPage} from "@/feature/Movie/ui/SearchPage/SearchPage.tsx";
 import {FavoritesPage} from "@/feature/Movie/ui/FavoritesPage/FavoritesPage.tsx";
 import {PageNotFound} from "@/common/components/PageNotFound/PageNotFound.tsx";
 import {MoviePage} from "@/feature/Movie/ui/MoviePage/MoviePage.tsx";
-
-export const Path = {
-    Main: '/',
-    Category: '/movies',
-    Filtered: '/filtered',
-    Search: '/search',
-    Favorites: '/favorites',
-    Movie: '/movie',
-    PageNotFound: '*',
-} as const
-
+import {Path} from "@/common/constants";
 
 export const Routing = () => {
 

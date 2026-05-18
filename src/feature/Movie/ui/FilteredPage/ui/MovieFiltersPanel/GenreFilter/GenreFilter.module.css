@@ -1,0 +1,45 @@
+.genresContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.input {
+    display: none;
+}
+
+.label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-primary, #333);
+    padding: 5px 13px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-border, #ccc);
+    background: var(--color-bg, #fff);
+    transition: background 0.16s, color 0.16s, border-color 0.16s;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.input:checked + .label {
+    background: #184ee4;
+    color: #fff;
+    border-color: #184ee4;
+}
+
+.chip:hover .label {
+    border-color: #1d6fa4;
+    color: #1d6fa4;
+}
+
+.chip:hover .input:checked + .label {
+    background: #155d8a;
+    border-color: #155d8a;
+    color: #fff;
+}

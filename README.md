@@ -1,75 +1,105 @@
-# React + TypeScript + Vite
+# TMDB Movie Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio React application for browsing, searching, filtering, and saving movies using the TMDB API.
 
-Currently, two official plugins are available:
+The project focuses on a feature-based frontend structure, typed API integration, runtime response validation, and reusable UI building blocks.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Screenshots
 
-## React Compiler
+### Home page
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+![Home page](./docs/screenshots/home.png)
 
-Note: This will impact Vite dev & build performances.
+### Movie filters
 
-## Expanding the ESLint configuration
+![Movie filters](./docs/screenshots/filters.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Movie details
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![Movie details](./docs/screenshots/movie-details.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Search results
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+![Search results](./docs/screenshots/search.png)
+
+## Features
+
+- Browse TMDB movie categories: popular, top rated, now playing, and upcoming.
+- Search movies by title with URL query params and pagination.
+- Filter discover results by genre, rating range, and sort order.
+- Open a movie details page with poster, metadata, overview, genres, cast, and similar movies.
+- Save favorite movies in `localStorage`.
+- Switch between light and dark themes.
+- Show skeleton states and linear loading indicators while API data is loading.
+- Display API and schema validation errors with toast notifications.
+
+## Tech Stack
+
+- React 19
+- TypeScript
+- Vite 8
+- React Router
+- Redux Toolkit and RTK Query
+- Zod
+- CSS Modules
+- React Loading Skeleton
+- React Toastify
+
+## Architecture
+
+The project uses a feature-based structure:
+
+```txt
+src/
+  app/       # application shell, store, base API setup
+  common/    # shared components, hooks, routing, types, utils, constants
+  feature/
+    Movie/   # movie API, schemas, pages, and movie-specific UI
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Movie-related logic is grouped inside `feature/Movie`, while app-level infrastructure is kept in `app`. Reusable code lives in `common`, including layout components, movie cards, pagination, hooks, constants, and utility functions.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## API Integration
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The app uses a shared RTK Query `baseApi` configured for TMDB:
+
+- authorization is handled through a Vite environment variable;
+- endpoints are declared in `feature/Movie/api/movieApi.ts`;
+- external responses are validated with Zod schemas;
+- API and schema errors are converted into user-facing toast notifications.
+
+## Environment Variables
+
+Create an `.env` file in the project root:
+
+```env
+VITE_ACCESS_TOKEN=your_tmdb_bearer_token
 ```
+
+You can get a token from your TMDB account settings.
+
+## Getting Started
+
+```bash
+pnpm install
+pnpm run dev
+```
+
+## Available Scripts
+
+```bash
+pnpm run dev
+pnpm run build
+pnpm run lint
+pnpm run preview
+```
+
+## Project Status
+
+- Production build passes.
+- ESLint passes.
+- Automated tests are not added yet.
+
+## Credits
+
+Movie data and images are provided by [The Movie Database API](https://developer.themoviedb.org/docs). This project is not affiliated with TMDB.

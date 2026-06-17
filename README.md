@@ -4,24 +4,6 @@ Portfolio React application for browsing, searching, filtering, and saving movie
 
 The project focuses on a feature-based frontend structure, typed API integration, runtime response validation, and reusable UI building blocks.
 
-## Screenshots
-
-### Home page
-
-![Home page](./docs/screenshots/home.png)
-
-### Movie filters
-
-![Movie filters](./docs/screenshots/filters.png)
-
-### Movie details
-
-![Movie details](./docs/screenshots/movie-details.png)
-
-### Search results
-
-![Search results](./docs/screenshots/search.png)
-
 ## Features
 
 - Browse TMDB movie categories: popular, top rated, now playing, and upcoming.

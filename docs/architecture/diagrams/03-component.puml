@@ -1,0 +1,37 @@
+@startuml TMDB_Movie_Explorer_Component
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_LEFT_RIGHT()
+
+title Component diagram for Web Application
+
+Person(viewer, "Viewer", "Browses, searches, filters, and saves movies of interest.")
+
+Container_Boundary(webApp, "Web Application") {
+    Component(appShell, "Application Shell and Routing", "React, React Router", "Bootstraps the application, renders its layout, and selects a page for the current URL.")
+    Component(movieUi, "Movie Feature UI", "React", "Implements browsing, search, filtering, movie details, and favorites workflows.")
+    Component(sharedUi, "Shared UI Components", "React, CSS Modules", "Provides reusable headers, movie cards, filters, pagination, loading states, and layout elements.")
+    Component(appState, "Application State", "Redux Toolkit", "Manages the visual theme and the viewer's favorite movies.")
+    Component(tmdbIntegration, "TMDB Integration", "RTK Query", "Retrieves and caches movie information and supplies TMDB image locations.")
+    Component(validation, "Validation and Error Reporting", "Zod, React Toastify", "Validates external responses and presents API or schema errors to the viewer.")
+}
+
+ContainerDb(browserStorage, "Browser Storage", "Web Storage API (localStorage)", "Stores favorite movies and the selected visual theme on the current device.")
+System_Ext(tmdb, "The Movie Database (TMDB)", "Provides the movie catalogue, genres, ratings, cast information, recommendations, and images.")
+
+Rel(viewer, appShell, "Uses", "Web browser")
+Rel(appShell, movieUi, "Routes requests to")
+Rel(appShell, sharedUi, "Uses for application layout")
+Rel(appShell, appState, "Reads the visual theme from")
+Rel(movieUi, sharedUi, "Uses to render pages and interactions")
+Rel(movieUi, tmdbIntegration, "Requests movie content from")
+Rel(movieUi, appState, "Reads favorites from")
+Rel(sharedUi, appState, "Reads and updates theme and favorites in")
+Rel(appState, browserStorage, "Persists and restores preferences in")
+Rel(tmdbIntegration, validation, "Validates responses and reports failures through")
+Rel(tmdbIntegration, tmdb, "Retrieves movie data and images from", "HTTPS")
+
+SHOW_LEGEND()
+
+@enduml

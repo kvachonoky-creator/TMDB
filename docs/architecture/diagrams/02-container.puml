@@ -1,0 +1,24 @@
+@startuml TMDB_Movie_Explorer_Container
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_LEFT_RIGHT()
+
+title Container diagram for TMDB Movie Explorer
+
+Person(viewer, "Viewer", "Browses, searches, filters, and saves movies of interest.")
+
+System_Boundary(movieExplorer, "TMDB Movie Explorer") {
+    Container(webApp, "Web Application", "React, TypeScript, Redux Toolkit, RTK Query", "Provides the browser user interface, application state, navigation, movie discovery, and TMDB integration.")
+    ContainerDb(browserStorage, "Browser Storage", "Web Storage API (localStorage)", "Stores the viewer's favorite movies and selected visual theme on the current device.")
+}
+
+System_Ext(tmdb, "The Movie Database (TMDB)", "Provides the movie catalogue, genres, ratings, cast information, recommendations, and images.")
+
+Rel(viewer, webApp, "Uses", "Web browser")
+Rel(webApp, browserStorage, "Reads and writes favorites and theme")
+Rel(webApp, tmdb, "Retrieves movie data and images", "HTTPS")
+
+SHOW_LEGEND()
+
+@enduml

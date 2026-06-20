@@ -1,0 +1,34 @@
+@startuml TMDB_Load_Movie_Details_Dynamic
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+LAYOUT_LEFT_RIGHT()
+
+title Dynamic diagram: loading movie details
+
+Person(viewer, "Viewer", "Opens a movie details page.")
+
+Container_Boundary(webApp, "Web Application") {
+    Component(appShell, "Application Shell and Routing", "React Router", "Selects the page for the current URL.")
+    Component(movieUi, "Movie Feature UI", "React", "Orchestrates the movie details screen.")
+    Component(tmdbIntegration, "TMDB Integration", "RTK Query", "Retrieves and caches movie information.")
+    Component(validation, "Validation and Error Reporting", "Zod, React Toastify", "Validates external responses and reports failures.")
+    Component(sharedUi, "Shared UI Components", "React", "Renders the movie information.")
+}
+
+System_Ext(tmdb, "The Movie Database (TMDB)", "Provides movie information.")
+
+Rel(viewer, appShell, "Opens /movie/{id}")
+Rel(appShell, movieUi, "Routes to MoviePage")
+Rel(movieUi, tmdbIntegration, "Requests movie details")
+Rel(tmdbIntegration, tmdb, "Requests movie data", "HTTPS/JSON")
+Rel_Back(tmdbIntegration, tmdb, "Returns movie data")
+Rel(tmdbIntegration, validation, "Requests response validation")
+Rel_Back(tmdbIntegration, validation, "Returns validated data")
+Rel_Back(movieUi, tmdbIntegration, "Returns cached query data")
+Rel(movieUi, sharedUi, "Renders movie information with")
+Rel_Back(viewer, sharedUi, "Displays the movie details")
+
+SHOW_LEGEND()
+
+@enduml

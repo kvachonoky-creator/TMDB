@@ -1,0 +1,53 @@
+@startuml TMDB_Load_Movie_Details_Sequence
+
+title UML Sequence diagram: loading movie details
+
+hide footbox
+autonumber
+
+actor Viewer
+
+box "Web Application" #EAF3F8
+    boundary "MoviePage" as MoviePage
+    control "Generated RTK Query hook" as Hook
+    control "movieApi.getMoviesDetails" as Endpoint
+    control "baseApi" as BaseApi
+    control "Response schema validation" as Validation
+    control "Error reporting" as Errors
+end box
+
+participant "TMDB API" as TMDB
+
+Viewer -> MoviePage : Opens /movie/{id}
+MoviePage -> Hook : useGetMoviesDetailsQuery(id)
+Hook -> Endpoint : Executes endpoint with id
+Endpoint -> BaseApi : GET movie/{id}
+BaseApi -> BaseApi : Adds Bearer authorization header
+BaseApi -> TMDB : Sends HTTPS request
+TMDB --> BaseApi : Returns HTTP response
+
+alt Network or HTTP error
+    BaseApi -> Errors : handleError(error)
+    Errors --> Viewer : Displays toast notification
+    BaseApi --> Endpoint : FetchBaseQueryError
+    Endpoint --> Hook : Returns query error state
+    Hook --> MoviePage : Exposes error state
+else Successful HTTP response
+    BaseApi --> Endpoint : Returns raw JSON data
+    Endpoint -> Validation : Applies MovieDetailsSchema
+
+    alt Schema validation failure
+        Validation -> Errors : catchSchemaFailure(issues)
+        Errors --> Viewer : Displays Zod error notification
+        Validation --> Endpoint : Returns CUSTOM_ERROR
+        Endpoint --> Hook : Returns query error state
+        Hook --> MoviePage : Exposes error state
+    else Valid response
+        Validation --> Endpoint : Returns typed MovieDetails
+        Endpoint --> Hook : Caches and returns data
+        Hook --> MoviePage : Exposes movie data
+        MoviePage --> Viewer : Renders movie details
+    end
+end
+
+@enduml

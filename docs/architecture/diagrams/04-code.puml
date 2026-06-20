@@ -1,0 +1,65 @@
+@startuml TMDB_Integration_Code
+
+allowmixing
+
+title Code diagram for TMDB Integration component
+
+skinparam backgroundColor #FAFAFA
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageBorderColor #438DD5
+skinparam classBorderColor #1168BD
+skinparam classBackgroundColor #D9EAF7
+skinparam ArrowColor #455A64
+
+package "TMDB Integration component" #EAF3F8 {
+    class "baseApi" as BaseApi <<RTK Query API module>> {
+        + reducerPath: "baseApi"
+        + baseQuery(args, api, extraOptions): QueryResult
+        - prepareHeaders(headers): Headers
+    }
+
+    class "movieApi" as MovieApi <<endpoint module>> {
+        + getCategoryMovies(category, page): BaseResponse
+        + searchMovies(params): BaseResponse
+        + getDiscoverMovies(filters): BaseResponse
+        + getMoviesDetails(id): MovieDetails
+        + getMoviesCredits(id): MovieCredits
+        + getMoviesSimilar(id): MovieSimilarResponse
+        + getMoviesGenre(): GenresResponse
+    }
+
+    class "Generated Query Hooks" as QueryHooks <<generated exports>> {
+        + useGetCategoryMoviesQuery()
+        + useSearchMoviesQuery()
+        + useGetDiscoverMoviesQuery()
+        + useGetMoviesDetailsQuery()
+        + useGetMoviesCreditsQuery()
+        + useGetMoviesSimilarQuery()
+        + useGetMoviesGenreQuery()
+    }
+}
+
+component "Movie Feature UI" as MovieUi
+component "Validation and Error Reporting" as Validation
+cloud "The Movie Database (TMDB)" as TMDB
+
+MovieApi --> BaseApi : injectEndpoints()
+QueryHooks ..> MovieApi : generated from endpoint definitions
+MovieUi --> QueryHooks : invokes queries and reads query state
+MovieApi --> Validation : attaches response schemas via zodCatch()
+BaseApi --> Validation : delegates API error reporting to handleError()
+BaseApi --> TMDB : executes authenticated requests via fetchBaseQuery()
+
+note right of BaseApi
+  prepareHeaders() reads VITE_ACCESS_TOKEN
+  and adds the Bearer authorization header.
+end note
+
+legend bottom
+  |= Element |= Meaning |
+  | Class-shaped element | TypeScript module or generated exports |
+  | Component-shaped element | Neighbouring component from C4 level 3 |
+endlegend
+
+@enduml

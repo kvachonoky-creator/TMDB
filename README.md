@@ -41,6 +41,8 @@ src/
 
 Movie-related logic is grouped inside `feature/Movie`, while app-level infrastructure is kept in `app`. Reusable code lives in `common`, including layout components, movie cards, pagination, hooks, constants, and utility functions.
 
+The [architecture documentation](docs/architecture/README.md) contains C4, dynamic, and sequence diagrams.
+
 ## API Integration
 
 The app uses a shared RTK Query `baseApi` configured for TMDB:

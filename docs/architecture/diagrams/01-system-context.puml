@@ -1,0 +1,20 @@
+@startuml TMDB_Movie_Explorer_System_Context
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_LEFT_RIGHT()
+
+title System Context diagram for TMDB Movie Explorer
+
+Person(viewer, "Viewer", "Browses, searches, filters, and saves movies of interest.")
+
+System(movieExplorer, "TMDB Movie Explorer", "Allows viewers to discover movies, view details, manage favorites, and choose a visual theme.")
+
+System_Ext(tmdb, "The Movie Database (TMDB)", "Provides the movie catalogue, genres, ratings, cast information, recommendations, and images.")
+
+Rel(viewer, movieExplorer, "Explores movies and manages personal favorites")
+Rel(movieExplorer, tmdb, "Retrieves movie information and images")
+
+SHOW_LEGEND()
+
+@enduml
